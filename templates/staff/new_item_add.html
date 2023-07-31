@@ -1,0 +1,387 @@
+
+<style>
+
+  html {
+      background: gray;
+     
+      font-family: sans-serif;
+    }
+    
+    *,
+    ::after,
+    ::before {
+      box-sizing: border-box;
+    }
+    
+    @keyframes slide-up2 {
+      0% {
+        transform: translateY(0.5em);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes glow-load {
+      0% {
+        box-shadow: none;
+      }
+      100% {
+        box-shadow: 0px 0px 50px  black;
+      }
+    }
+    
+    @keyframes continuous-glow {
+      0% {
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.39),
+          inset 0 0 5px rgba(0, 0, 0, 0.356), 0 2px 0 #000;
+      }
+      100% {
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.6),
+          inset 0 0 10px rgba(0, 0, 0, 0.4), 0 2px 0 #000;
+      }
+    }
+    
+    @keyframes blur-load {
+      0% {
+        opacity: 0;
+        filter: blur(0.2em);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0);
+      }
+    }
+    
+    .form-container {
+      margin: auto;
+      width: 90%;
+    }
+    
+    .form-item,
+    .textarea-div {
+      opacity: 0;
+    }
+    
+    .form-item1 {
+      animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.3s 1 slide-up2;
+      animation-fill-mode: forwards;
+    }
+    
+    .form-item2 {
+      animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.4s 1 slide-up2;
+      animation-fill-mode: forwards;
+    }
+    
+    .form-item3 {
+      animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.5s 1 slide-up2;
+      animation-fill-mode: forwards;
+    }
+    
+    .form-item4 {
+      animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s 1 slide-up2;
+      animation-fill-mode: forwards;
+    }
+    .form-item5 {
+      animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s 1 slide-up2;
+      animation-fill-mode: forwards;
+    }
+    .form-item6 {
+      animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s 1 slide-up2;
+      animation-fill-mode: forwards;
+    }
+    .form-item7 {
+      animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s 1 slide-up2;
+      animation-fill-mode: forwards;
+    }
+    .form-item8 {
+      animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s 1 slide-up2;
+      animation-fill-mode: forwards;
+    }
+    .form-item9 {
+      animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s 1 slide-up2;
+      animation-fill-mode: forwards;
+    }
+    form {
+      
+      background-color:white;
+      border-radius: 1.25em;
+      padding: 1.5em;
+      animation: 1s cubic-bezier(0.47, 0, 0.745, 0.715) 0.7s 1 glow-load;
+      animation-fill-mode: forwards;
+    }
+    
+    form label {
+      color: black;
+    }
+    
+    option,
+    select,
+    input,
+    .textarea-div textarea {
+      background: gray;
+      color: black;
+      font-size: 14px;
+    }
+    
+    .form-header {
+      text-align: center;
+      font-size: 28px;
+      padding: 0;
+      margin-bottom: 1.25em;
+      color:  black;
+    }
+    
+    label {
+      color: black;
+      display: block;
+      margin-bottom: 0.35em;
+      margin-top: 0.35em;
+    }
+    
+    input:not(.btn),
+    select {
+      padding: 0.625em 1em;
+      width: 100%;
+      outline: 0;
+      margin-bottom: 1.25em;
+      border-radius: 1.25em;
+      border: 0;
+    }
+    
+    .textarea-div {
+      width: 100%;
+    }
+    
+    textarea {
+      padding: 10px;
+      width: 100%;
+      outline: 0;
+      margin-bottom: 20px;
+      border-radius: 20px;
+      border: 0;
+      font-size: 14px;
+      height: 100px;
+    }
+    
+    .btn-container {
+      margin: auto;
+      padding-bottom: 1em;
+      text-align: center; 
+    }
+    
+    .form-btn {
+      background: rgb(12, 12, 12);
+      border: none;
+      margin-top: 1em;
+      font-size: 20px;
+      padding: 0.5em;
+    }
+    
+    .btn-glow {
+      animation: 0.5s ease-out 0s 1 blur-load;
+      border-radius: 2em;
+      color: white;
+      transition: 0.4s;
+    }
+    
+    .btn-glow:hover {
+      box-shadow: 0px 0px 10px #f0860c;
+    }
+    
+    .form-btn:hover {
+      background: gray;
+    }
+    
+    .form-container input:focus,
+    .form-container select:focus,
+    .form-container textarea:focus {
+      animation: continuous-glow 800ms ease-out infinite alternate;
+      box-shadow: 0 0 5px #f0860c, inset 0 0 5px #f0860c, 0 2px 0 #000;
+      color: rgb(255, 229, 195);
+    }
+    
+   /* Custom CSS for image preview */
+
+
+  .img-preview {
+    width:200px;
+    border-radius: 10px;
+    position: absolute;
+    top:-200px;
+    left:280px;
+    overflow: hidden;
+    transition:.5s all linear;
+  }
+  
+  .form{
+    margin-top:20px;
+  }
+
+    @media only screen and (min-width: 35.8em) {
+      .form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+    
+      .form-item {
+        width: 45%;
+      }
+    
+      .form-container {
+        padding: 5em 0;
+        width: 80%;
+      }
+      
+
+   
+    }
+    
+    @media only screen and (min-width: 60.625em) {
+      .form-container {
+        padding: 8em 0;
+        width: 70%;
+      }
+
+  
+
+
+      }
+
+      /* Styles for screens with a width of 60.625 ems or larger */
+@media (max-width: 60.625em) {
+  /* Your CSS rules here */
+  .img-preview {
+  
+    position: absolute;
+    top:-230px;
+    left:90px;
+
+  }
+  .form{
+    margin-top:250px;
+  }
+}
+
+
+    
+</style>
+<section class="form-container">
+  <form action = "{% url 'new_module' %}" method = 'POST' enctype="multipart/form-data">
+     {% csrf_token %}
+  <h1 class="form-header"> Create Item </h1>
+
+
+  <div class="form">
+
+
+    <div class="form-item form-item1">
+      <label for="title">Title</label>
+      <input id="title" type="text" name="title"/>
+    </div>
+
+    <div class="form-item form-item1">
+      <label for="price">Price</label>
+      <input id="price" type="text" name="price"/>
+    </div>
+
+    <div class="form-item form-item1">
+      <label for="under_category">Under Category</label>
+      <select name="under_category" id="under_category">
+          {% for choice in under_choices %}
+          <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+          {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-item form-item1">
+      <label for="offer_price">Offer Percentage</label>
+      <input id="offer_price" type="text" name="offer_price"/>
+    </div>
+
+
+  <div class="form-item  form-item1">
+    <label for="image">Upload Image</label>
+    <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
+    <span id="image-size-info"></span>
+    
+  </div>
+
+
+  <div class="form-item form-item1">
+      <label for="categories">Categories</label>
+      <select name="categories" id="categories">
+        {% for item in item_categories %}
+          <option value="{{ item.id }}">{{ item.category_name}}</option>
+        {% endfor %}
+      </select>
+  </div>
+
+
+  <div class="form-item form-item1">
+    
+  </div>
+
+
+  </div>
+
+  <div class="textarea-div form-item9">
+    <label for="title_description">Title Description</label>
+    {% comment %} <input id="description" type="text" name="description"/> {% endcomment %}
+    <textarea id="title_description" type="text" name="title_description" placeholder="Title Description max:100 Characters"></textarea>
+  </div>
+
+  
+  <div class="textarea-div form-item9">
+    <label for="description">Description</label>
+    {% comment %} <input id="description" type="text" name="description"/> {% endcomment %}
+    <textarea id="description" type="text" name="description" placeholder="Description"></textarea>
+  </div>
+
+  <div class="btn-container">
+    <input id="submit" class="btn btn-glow form-btn" type="submit" name="submit" value="Submit" />
+  </div>
+
+</form>
+</section>
+
+<script>
+// JavaScript for image preview
+const imageInput = document.getElementById('image');
+const imagePreview = document.querySelector('.img-preview');
+
+imageInput.addEventListener('change', function() {
+  const file = this.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+
+    reader.addEventListener('load', function() {
+      imagePreview.src = reader.result;
+      imagePreview.classList.remove('d-none');
+    });
+
+    reader.readAsDataURL(file);
+  } else {
+    imagePreview.src = '#';
+    imagePreview.classList.add('d-none');
+  }
+});
+
+
+
+</script>
+
+
+  
+
+
+
+
+
+
+
+

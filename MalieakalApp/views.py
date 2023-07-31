@@ -47,13 +47,12 @@ def login_main(request):
             member = User_Registration.objects.get(username=request.POST['username'],password=request.POST['password'])
             
             request.session['userid'] = member.id
+            if Profile_User.objects.filter(user_id=member.id).exists():
+                return redirect('staff_home')
+            else:
+                return redirect('profile_staff_creation')
             
-            return redirect('staff_home')
-           
-
-
-       
-
+            
         elif User_Registration.objects.filter(username=request.POST['username'], password=request.POST['password'],role="user2").exists():
             member = User_Registration.objects.get(username=request.POST['username'],password=request.POST['password'])
             request.session['userid'] = member.id
@@ -135,11 +134,146 @@ def logout(request):
     else:
         return redirect('/')
 ############################################################# <<<<<<<<<< STAFF MODULE >>>>>>>>>>>>>>
+def staff_base(request):
+    ids=request.session['userid']
+    usr=Profile_User.objects.get(user=ids)
+    lk=category.objects.get(id=1)
+ 
+    context={
+        'user':usr,
+        "lk":lk
+    }
+    return render(request, 'staff/staff_base.html',context)
 
-
-    
 def staff_home(request):
-    return render(request, 'staff/staff_home.html')
+    ids=request.session['userid']
+    usr=Profile_User.objects.get(user=ids)
+    items = item.objects.all()
+    return render(request, 'staff/staff_home.html',{'items':items,'user':usr,})
+
+def new_module(request):
+
+    item_categories = category.objects.all()
+    under_choices = (
+    ("Home Appliance", "Home Appliance"),
+    ("Electronics", "Electronics"),
+    ("Furniture", "Furniture"),
+    )
+    if request.method == 'POST':
+        form_data = request.POST.dict()
+
+        title = form_data.get('title', None)
+        price = form_data.get('price', None)
+     
+        offer_price = form_data.get('offer_price', None)
+        image = request.FILES.get('image', None)
+        category_id = form_data.get('categories', None)
+        under_category = form_data.get('under_category', None)
+        title_description = form_data.get('title_description', None)
+        description = form_data.get('description', None)
+
+        categorys = get_object_or_404(category, pk=category_id)
+      
+
+        new_item = item(
+            category = categorys,
+            name = title,
+            price = price,
+            buying_count = 0,
+            offer = offer_price,
+            image = image,
+            under_category = under_category,
+            title_description = title_description,
+            description = description
+        )
+        new_item.save()
+        return redirect('staff_home')
+    context={
+        'item_categories':item_categories,
+        'under_choices':under_choices,
+    }
+
+    return render(request,'staff/new_item_add.html',context)
+
+# <<<<<<<<<< for Editing item >>>>>>>>>>>>>>
+
+def new_module_edit(request, item_id):
+    item_instance = get_object_or_404(item, pk=item_id)
+    item_categories = category.objects.all()
+    under_choices = (
+        ("Home Appliance", "Home Appliance"),
+        ("Electronics", "Electronics"),
+        ("Furniture", "Furniture"),
+    )
+
+    context = {
+        'item_instance': item_instance,
+        'item_categories': item_categories,
+        'under_choices': under_choices,
+    }
+    if request.method == 'POST':
+        form_data = request.POST.dict()
+        item_instance.name = form_data.get('title', '')
+        item_instance.price = form_data.get('price', '')
+        item_instance.offer = form_data.get('offer_price', '')
+        item_instance.image = request.FILES.get('image', item_instance.image)
+        category_id = form_data.get('categories', None)
+        if category_id:
+            category_instance = get_object_or_404(category, pk=category_id)
+            item_instance.category = category_instance
+        item_instance.under_category = form_data.get('under_category', '')
+        item_instance.title_description = form_data.get('title_description', '')
+        item_instance.description = form_data.get('description', '')
+
+        item_instance.save()
+        return redirect('staff_home')
+
+    return render(request, 'staff/new_item_edit.html', context)
+#################################
+def delete_item(request,id):
+    d1=item.objects.get(id=id)
+    d1.delete()
+    return redirect('/staff_home/')
+
+def profile_staff_creation(request):
+    if request.session.has_key('userid'):
+        pass
+    else:
+        return redirect('/')
+    ids=request.session['userid']
+    usr=User_Registration.objects.get(id=ids)
+    if request.method =="POST":
+        
+        firstname = request.POST.get('firstname',None)
+        lastname = request.POST.get('lastname',None)
+        phonenumber = request.POST.get('phonenumber',None)
+        email = request.POST.get('email',None)
+        gender = request.POST.get('gender',None)
+        address = request.POST.get('address',None)
+        date_of_birth= request.POST.get('date_of_birth',None)
+        pro_pics = request.FILES.get('propic',None)
+        secondnumb = request.POST.get('secondnumb',None)
+        profile_artist = Profile_User(
+            firstname=firstname,
+            lastname=lastname,
+            phonenumber=phonenumber,
+            email=email,
+            gender=gender,
+            date_of_birth=date_of_birth,
+            address=address,
+            pro_pic=pro_pics,
+            user=usr,
+            secondnumber=secondnumb
+        )
+        profile_artist.save()
+
+
+        return redirect('staff_home')
+    context={
+        'user':usr
+    }
+    return render(request,'index\index_staff\profile_staff_creation.html', context)
+
 #######################################logout################### <<<<<<<<<< USER MODULE >>>>>>>>>>>>>>>>
 
 def user_base(request):
@@ -539,8 +673,13 @@ def send_receipt(request):
         recipient_list = [usr.email]
         send_mail(subject,message , email_from, recipient_list, fail_silently=True)
 
-        pywhatkit.sendwhatmsg("+918848937577",
-                                ""+str(message),21,59)
+        # pywhatkit.sendwhatmsg("+918848937577",
+        #                         ""+str(message),21,59)
+
+        pywhatkit.sendwhatmsg_instantly(
+            phone_no="+918848937577", 
+            message=""+str(message),
+        )
         print("Successfully Sent!")
         
         

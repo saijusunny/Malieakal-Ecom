@@ -110,7 +110,7 @@
       <fieldset1 id="field1">
         <div class="row">
         {% for item in items%}
-            <div class="col-sm-12 col-md-4 col-lg-4 ps-4 pe-4">
+            <div class="col-sm-12 col-md-4 col-lg-4 ps-4 pe-4 outers">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                     <div class="col-md-6">
@@ -148,7 +148,22 @@
       
   </div>
   
+  <script>
+    const input = document.getElementById('search')
+    input.addEventListener('keyup', (e) => {
+    var inputs = e.target.value.toLowerCase(); //do lowercase
+    document.querySelectorAll('.outers').forEach(function(el) {
+        el.style.display = 'none';
+    });
 
+    document.querySelectorAll('.outers .card-title').forEach(function(el) {
+        //compare 
+        if (el.textContent.toLowerCase().indexOf(inputs) > -1) {
+        el.closest('.outers').style.display = "block"; //if match show that div
+        }
+    })
+    })
+</script> 
 
   <script>
       

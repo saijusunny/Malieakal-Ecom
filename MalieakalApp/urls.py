@@ -15,7 +15,10 @@ urlpatterns = [
     ############################################################ <<<<<<<<< Staff MODULE >>>>>>>>>>>>>>>>>
  
     path('staff_home/',views.staff_home,name='staff_home'),
-
+    path('delete/<int:id>/', views.delete_item, name='delete_item'),
+    path('profile_staff_creation/',views.profile_staff_creation,name='profile_staff_creation'),
+    path('new_module',views.new_module,name='new_module'),
+    path('new_module_edit/<int:item_id>',views.new_module_edit,name='new_module_edit'),
     ############################################################ <<<<<<<<< User MODULE >>>>>>>>>>>>>>>>>
 
     path('user_registration/',views.user_registration,name='user_registration'),
