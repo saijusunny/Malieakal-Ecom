@@ -23,6 +23,7 @@ import string
 from django.http import HttpResponse
 from django.http import JsonResponse
 from datetime import datetime,date, timedelta
+import pywhatkit
 ######################################################################### <<<<<<<<<< LANDING MODULE >>>>>>>>>>>>>>
 def index(request):
     return render(request, 'index/index.html')
@@ -302,6 +303,90 @@ def under_items(request, category):
     }
     return render(request, 'user/uder_items.html',context)
 
+def under_category_items_add_cart(request, id, categorys):
+    if request.session.has_key('userid'):
+        pass
+    else:
+        return redirect('/')
+    ids=request.session['userid']
+    usr=User_Registration.objects.get(id=ids)
+    
+    items=item.objects.get(id=id)
+    cat=category.objects.get(id=categorys)
+    if cart.objects.filter(user=usr,item=items).exists():
+        messages.error(request, 'This item is already in cart')
+        items=item.objects.filter(category_id=categorys)
+        usrd=Profile_User.objects.get(user=ids)
+        context={
+        'user':usrd,
+        "items":items
+        }
+   
+    else:
+        crt=cart()
+        crt.user=usr
+        crt.item=items
+        crt.save()
+        messages.error(request, 'This item is add to cart')
+        items=item.objects.filter(category_id=categorys)
+        usrd=Profile_User.objects.get(user=ids)
+        context={
+            'user':usrd,
+            "items":items
+        }
+    return redirect("under_items",cat.category_name)
+
+def all_items(request):
+
+    if request.session.has_key('userid'):
+        pass
+    else:
+        return redirect('/')
+    ids=request.session['userid']
+    usr=Profile_User.objects.get(user=ids)
+    
+    items=item.objects.all()
+
+    context={
+        'user':usr,
+        "items":items,
+ 
+    }
+    return render(request, 'user/all_item.html',context)
+
+def all_items_add_cart(request, id, category):
+    if request.session.has_key('userid'):
+        pass
+    else:
+        return redirect('/')
+    ids=request.session['userid']
+    usr=User_Registration.objects.get(id=ids)
+    
+    items=item.objects.get(id=id)
+    print(items.name)
+    if cart.objects.filter(user=usr,item=items).exists():
+        messages.error(request, 'This item is already in cart')
+        items=item.objects.filter(category_id=category)
+        usrd=Profile_User.objects.get(user=ids)
+        context={
+        'user':usrd,
+        "items":items
+        }
+   
+    else:
+        crt=cart()
+        crt.user=usr
+        crt.item=items
+        crt.save()
+        messages.error(request, 'This item is add to cart')
+        items=item.objects.filter(category_id=category)
+        usrd=Profile_User.objects.get(user=ids)
+        context={
+            'user':usrd,
+            "items":items
+        }
+    return redirect("all_items")
+
 def add_cart(request, id, category):
     if request.session.has_key('userid'):
         pass
@@ -448,11 +533,17 @@ def send_receipt(request):
      
         tot="\n\nTotal Amount : "+str(total_amount)
         subject = 'Greetings from Malieakal'
-        message = 'Congratulations,\nYou have successfully purchased\n \n\nName :'+str(usr.name)+str(usr.lastname)+'\nAddress :'+str(pro.address)+'\n\nNote: This is a system generated email, do not reply to this email id.\n'+str(lst)+str(tot)
+        message = 'Greetings from Malieakal\n\nReciept,\n\nName :'+str(usr.name)+str(usr.lastname)+'\nAddress :'+str(pro.address)+'\n\n'+str(lst)+str(tot)
         email_from = settings.EMAIL_HOST_USER
         
         recipient_list = [usr.email]
         send_mail(subject,message , email_from, recipient_list, fail_silently=True)
+
+        pywhatkit.sendwhatmsg("+918848937577",
+                                ""+str(message),21,59)
+        print("Successfully Sent!")
+        
+        
         messages.error(request, 'Purchase Success Full')
         
         for i in item_id:

@@ -22,8 +22,16 @@ urlpatterns = [
     path('index_user_confirmation/<int:user_id>/',views.index_user_confirmation,name='index_user_confirmation'),
     path('profile_user_creation/',views.profile_user_creation,name='profile_user_creation'),
     path('user_home/',views.user_home,name='user_home'),
+    path('all_items/',views.all_items,name='all_items'),
+    path('all_items_add_cart/<int:id>/<int:category>',views.all_items_add_cart,name='all_items_add_cart'),
+
+    path('index_user_confirmation/<int:user_id>/',views.index_user_confirmation,name='index_user_confirmation'),
     path('category_items/<int:category>',views.category_items,name='category_items'),#--- Category item view template 
+    path('under_category_items_add_cart/<int:id>/<int:categorys>',views.under_category_items_add_cart,name='under_category_items_add_cart'),
+
     path('under_items/<str:category>',views.under_items,name='under_items'),
+    path('add_cart_pr_view/<int:id>/<int:category>',views.add_cart_pr_view,name='add_cart_pr_view'),
+
     path('add_cart/<int:id>/<int:category>',views.add_cart,name='add_cart'),
     path('add_cart_pr_view/<int:id>/<int:category>',views.add_cart_pr_view,name='add_cart_pr_view'),
     path('cart_view',views.cart_view,name='cart_view'),

@@ -3,7 +3,7 @@
 {% block content %}
 <style>
     body{
-        background-color: #4d5f81;
+        background-color: gray;
         width: 100%;
     }
     .card:hover{
@@ -66,8 +66,8 @@
 
 <div style="background-color: #04192c;">
     <div style="background-color: rgba(58, 58, 57, 0.37);height: 550px;">
-        <div class="row ">
-            <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="row">
+            <div class="col-sm-12 col-md-4 col-lg-4" style="text-align: center; margin: 0 auto;">
                 {% if messages %}
                 <div class="messages">
                     {% for message in messages %}
@@ -75,6 +75,11 @@
                     {% endfor %}
                 </div>
                 {% endif %}
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-sm-12 col-md-4 col-lg-4" >
+                
             </div>
             <div class="col-sm-12 col-md-4 col-lg-4">
                 <div id="div2">
@@ -92,11 +97,11 @@
   </div>
 
 
-  <div class="row mt-3 mb-3" >
-    <div class="col-sm-3">
+  <div class="row mt-3 mb-3" style="background-color: gray;">
+    <div class="col-sm-12">
       <div class="row">
-        <div class="col-sm-12">
-          <input type="text" class="form-control search text-light" id="search" placeholder="Search by Date...">
+        <div class="col-sm-12 p-3">
+          <input type="text" class="form-control search text-dark" id="search" placeholder="Search here...">
         </div>
        
       </div>
@@ -104,18 +109,14 @@
     </div>
 
 
-  <div style="background-color: gray;padding-bottom: 15%;padding-top: 2%;">
-      <div class="row pt-3 mb-5">
-          <div class="col-sm-12 col-md-4 col-lg-4"></div>
-          <div class="col-sm-12 col-md-4 col-lg-4">
-              
-          </div>
-          <div class="col-sm-12 col-md-4 col-lg-4"></div>
+  <div style="background-color: gray;padding-bottom: 15%;padding-top: 1%;">
+      <div class="row pt-3">
+          
       </div>
       <fieldset1 id="field1">
         <div class="row">
         {% for item in items%}
-            <div class="col-sm-12 col-md-4 col-lg-4 ps-4 pe-4">
+            <div class="col-sm-12 col-md-4 col-lg-4 ps-4 pe-4 outers" >
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                     <div class="col-md-6">
@@ -135,7 +136,7 @@
                             <div class="col-sm-12">
                                 <center>
                                     <a href="{% url 'product_view' item.id %}" class="btn btn-success">View</a>
-                                    <a href="{% url 'add_cart' item.id item.category_id%}" class="btn btn-secondary">Cart</a>
+                                    <a href="{% url 'under_category_items_add_cart' item.id item.category_id%}" class="btn btn-secondary">Cart</a>
         
                                 </center>
                             </div>
@@ -151,17 +152,24 @@
           
       </fieldset2>
       
+      
   </div>
   
   <script>
-    $(document).ready(function () {
-      $("#search").on("keyup", function () {
-        var value = $(this).val().toLowerCase();
-        $("#field1 div").filter(function () {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
+    const input = document.getElementById('search')
+    input.addEventListener('keyup', (e) => {
+    var inputs = e.target.value.toLowerCase(); //do lowercase
+    document.querySelectorAll('.outers').forEach(function(el) {
+        el.style.display = 'none';
     });
+
+    document.querySelectorAll('.outers .card-title').forEach(function(el) {
+        //compare 
+        if (el.textContent.toLowerCase().indexOf(inputs) > -1) {
+        el.closest('.outers').style.display = "block"; //if match show that div
+        }
+    })
+    })
 </script> 
 
   <script>
