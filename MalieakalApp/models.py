@@ -7,6 +7,11 @@ role = (
     ("user2", "User"),
    
 )
+under = (
+    ("Home Appliance", "Home Appliance"),
+    ("Electronics", "Electronics"),
+    ("Furniture", "Furniture"),
+)
 class User_Registration(models.Model):
     
     name = models.CharField(max_length=255,blank=True,null=True)
@@ -43,6 +48,17 @@ class Profile_User(models.Model):
     def __str__(self):
         return f"{self.firstname} {self.lastname}"
 
+class bannerads(models.Model):
+    banner_image1=models.FileField(upload_to='images/banner',blank=True,null=True)
+    banner_image2=models.FileField(upload_to='images/banner',blank=True,null=True)
+    banner_image3=models.FileField(upload_to='images/banner',blank=True,null=True)
+    banner_image4=models.FileField(upload_to='images/banner',blank=True,null=True)
+    banner_image5=models.FileField(upload_to='images/banner',blank=True,null=True)
+    banner_title1 = models.CharField(max_length=255,blank=True,null=True)
+    banner_title2 = models.CharField(max_length=255,blank=True,null=True)
+    banner_title3 = models.CharField(max_length=255,blank=True,null=True)
+    banner_title4 = models.CharField(max_length=255,blank=True,null=True)
+    banner_title5 = models.CharField(max_length=255,blank=True,null=True)
 class category(models.Model):
     category_name=  models.CharField(max_length=255,blank=True,null=True)
     image = models.FileField(upload_to='images/category-banner', default='static/images/default.png')
@@ -57,6 +73,7 @@ class item(models.Model):
     buying_count = models.IntegerField()
     offer = models.FloatField()
     image = models.FileField(upload_to='images/items', default='static/images/default.png')
+    under_category=models.CharField(max_length=255,blank=True,null=True,choices = under)
 
 class cart(models.Model):
     user = models.ForeignKey(User_Registration, on_delete=models.SET_NULL, null=True, blank=True)
@@ -70,3 +87,4 @@ class checkout(models.Model):
     item_price=models.FloatField(null=True, blank=True)
     item_name = models.CharField(max_length=255,blank=True,null=True)
     date=models.DateTimeField(null=True, blank=True)
+

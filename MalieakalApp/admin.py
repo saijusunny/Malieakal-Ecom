@@ -5,4 +5,4 @@ from .models import *
 admin.site.register(User_Registration)
 admin.site.register(category)
 admin.site.register(item)
-
+admin.site.register(bannerads)

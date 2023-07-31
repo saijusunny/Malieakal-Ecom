@@ -22,9 +22,15 @@ urlpatterns = [
     path('index_user_confirmation/<int:user_id>/',views.index_user_confirmation,name='index_user_confirmation'),
     path('profile_user_creation/',views.profile_user_creation,name='profile_user_creation'),
     path('user_home/',views.user_home,name='user_home'),
-    path('category_items/<int:category>',views.category_items,name='category_items'),#--- Category item view template
+    path('category_items/<int:category>',views.category_items,name='category_items'),#--- Category item view template 
+    path('under_items/<str:category>',views.under_items,name='under_items'),
     path('add_cart/<int:id>/<int:category>',views.add_cart,name='add_cart'),
-    path('cart_view',views.cart_view,name='cart_view'),#-----------------------------Cart View Template
+    path('add_cart_pr_view/<int:id>/<int:category>',views.add_cart_pr_view,name='add_cart_pr_view'),
+    path('cart_view',views.cart_view,name='cart_view'),
+    path('home',views.home,name='home'),#-----------------------------Cart View Template
     path('cart_checkout',views.cart_checkout,name='cart_checkout'),
     path('send_receipt',views.send_receipt,name='send_receipt'),
+    path('product_view/<int:item_id>/', views.product_view, name='product_view'),
+    path('delete_cart/<int:id>',views.delete_cart,name='delete_cart'),
+    
     ]

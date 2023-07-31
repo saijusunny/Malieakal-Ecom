@@ -57,7 +57,7 @@ def login_main(request):
             member = User_Registration.objects.get(username=request.POST['username'],password=request.POST['password'])
             request.session['userid'] = member.id
             if Profile_User.objects.filter(user_id=member.id).exists():
-                return redirect('user_home')
+                return redirect('home')
             else:
                 return redirect('profile_user_creation')
         else:
@@ -238,6 +238,24 @@ def profile_user_creation(request):
     return render(request,'index\index_user\profile_user_creation.html', context)
 
 
+def home(request):
+    if request.session.has_key('userid'):
+        pass
+    else:
+        return redirect('/')
+    ids=request.session['userid']
+    usr=Profile_User.objects.get(user=ids)
+
+    cat1="Home Appliance"
+    cat2="Electronics"
+    cat3="Furniture"
+    all_images = bannerads.objects.all().last()
+    cat_images = category.objects.all()
+    item_det = item.objects.all().order_by('-buying_count')[:6]
+    
+    
+    return render(request, 'user\home.html', {'image': all_images,'cat':cat_images,'user':usr,"cat1":cat1,"cat2":cat2,"cat3":cat3})
+
 def user_home(request):
     if request.session.has_key('userid'):
         pass
@@ -261,9 +279,28 @@ def category_items(request, category):
     
     context={
         'user':usr,
-        "items":items
+        "items":items,
+        
     }
     return render(request, 'user/category_items.html',context)
+
+def under_items(request, category):
+    print(category)
+    if request.session.has_key('userid'):
+        pass
+    else:
+        return redirect('/')
+    ids=request.session['userid']
+    usr=Profile_User.objects.get(user=ids)
+    
+    items=item.objects.filter(under_category=category)
+    print(items)
+    context={
+        'user':usr,
+        "items":items,
+        "category":category
+    }
+    return render(request, 'user/uder_items.html',context)
 
 def add_cart(request, id, category):
     if request.session.has_key('userid'):
@@ -315,6 +352,56 @@ def cart_view(request):
     }
     return render(request, 'user/cart_display.html',context)
 
+def product_view(request, item_id):
+    if request.session.has_key('userid'):
+        pass
+    else:
+        return redirect('/')
+    ids=request.session['userid']
+    usr=Profile_User.objects.get(user=ids)
+    try:
+        item_instance = item.objects.get(id=item_id)
+        oprice = item_instance.price
+
+        if item_instance.offer:
+            off = item_instance.offer
+            rp = oprice - (oprice * (off / 100))
+        else:
+            rp = oprice
+
+        return render(request, 'user/productview.html', {'item': item_instance, 'rp': rp,'user':usr,})
+
+    except item.DoesNotExist:
+        # Handle the case where the item does not exist
+        return HttpResponse("Item not found", status=404)
+
+def add_cart_pr_view(request, id, category):
+    if request.session.has_key('userid'):
+        pass
+    else:
+        return redirect('/')
+    ids=request.session['userid']
+    usr=User_Registration.objects.get(id=ids)
+    
+    items=item.objects.get(id=id)
+    print(items.name)
+    if cart.objects.filter(user=usr,item=items).exists():
+        messages.error(request, 'This item is already in cart')
+        items=item.objects.filter(category_id=category)
+        usrd=Profile_User.objects.get(user=ids)
+        
+   
+    else:
+        crt=cart()
+        crt.user=usr
+        crt.item=items
+        crt.save()
+        messages.error(request, 'This item is add to cart')
+        items=item.objects.filter(category_id=category)
+        usrd=Profile_User.objects.get(user=ids)
+        
+    return redirect("product_view",id)
+
 def cart_checkout(request):
     if request.session.has_key('userid'):
         pass
@@ -331,48 +418,55 @@ def cart_checkout(request):
     }
     return render(request, 'user/cart_checkout.html',context)
     
-
+# send reciept
 def send_receipt(request):
     ids=request.session['userid']
     usr=User_Registration.objects.get(id=ids)
+    pro=Profile_User.objects.get(user=ids)
     if request.method =="POST":
         total_amount = request.POST.get('total_amount')
        
         item_id =request.POST.getlist('item_id[]') 
         qty =request.POST.getlist('qty[]') 
-     
+
         if len(item_id)==len(qty):
             mapped2 = zip(item_id,qty)
             mapped2=list(mapped2)
          
             for ele in mapped2:
                 itm=item.objects.get(id=ele[0])
+                itm.buying_count=int(itm.buying_count+1)
+                itm.save()
                 created = checkout.objects.create(user=usr,item=itm,qty=ele[1],item_total=int(ele[1])*int(itm.price),item_name=itm.name,item_price=itm.price,date=date.today())
 
-        # chk_item=checkout.objects.filter(date=date.today())
-        # subject = 'Greetings from Malieakal'
-        # message = 'Congratulations,\nYou have successfully purchased\n \n\nName :'+str(usr.name)+str(usr.lastname)+'\nAddress :'+str(passw)+'\n\nNote: This is a system generated email, do not reply to this email id.'
-        # email_from = settings.EMAIL_HOST_USER
+        chk_item=checkout.objects.filter(date=date.today()).order_by('-id')[:len(item_id)]
+      
+        lst=""
+        for i in chk_item:
+            rcp="\n\nItem : "+str(i.item_name)+'\nAmount : '+str(i.item_price)+' * '+str(i.qty)+' = '+str(i.item_total)
+            lst+=rcp
+     
+        tot="\n\nTotal Amount : "+str(total_amount)
+        subject = 'Greetings from Malieakal'
+        message = 'Congratulations,\nYou have successfully purchased\n \n\nName :'+str(usr.name)+str(usr.lastname)+'\nAddress :'+str(pro.address)+'\n\nNote: This is a system generated email, do not reply to this email id.\n'+str(lst)+str(tot)
+        email_from = settings.EMAIL_HOST_USER
         
-        # recipient_list = [email_id, ]
-        # send_mail(subject,message , email_from, recipient_list, fail_silently=True)
-        # msg_success = "Registration successfully Check Your Registered Mail"
+        recipient_list = [usr.email]
+        send_mail(subject,message , email_from, recipient_list, fail_silently=True)
+        messages.error(request, 'Purchase Success Full')
         
-        carts=cart.objects.filter(user=ids)
+        for i in item_id:
+            print(i)
+            ckt=cart.objects.get(user=usr,item_id=i).delete()
+        
+          
     
-        context={
-            "cart":carts,
-            'user':usr,
-            
-        }
-        return render(request, 'user/cart_checkout.html',context)
-    ids=request.session['userid']
-    usr=Profile_User.objects.get(user=ids)
-    carts=cart.objects.filter(user=ids)
+        return redirect("cart_checkout")
+    return redirect("cart_checkout")
 
-    context={
-        "cart":carts,
-        'user':usr,
-        
-    }
-    return render(request, 'user/cart_checkout.html',context)
+def delete_cart(request,id):
+    ids=request.session['userid']
+    usr=User_Registration.objects.get(id=ids)
+    ckt=cart.objects.get(user=usr,id=id).delete()
+    return redirect("cart_checkout")
+  

@@ -3,7 +3,8 @@
 {% block content %}
 <style>
     body{
-        background-color: #7b8cac;
+        background-color: #4d5f81;
+        width: 100%;
     }
     .card:hover{
         box-shadow: 0 0 10px 2px hsl(0, 0%, 0%);
@@ -93,7 +94,7 @@
 
 
 
-  <div style="background-color: #04192c;padding-bottom: 15%;padding-top: 2%;">
+  <div style="background-color: gray;padding-bottom: 15%;padding-top: 2%;">
       <div class="row pt-3 mb-5">
           <div class="col-sm-12 col-md-4 col-lg-4"></div>
           <div class="col-sm-12 col-md-4 col-lg-4">
@@ -123,7 +124,7 @@
                         <div class="row" style="bottom: 0;">
                             <div class="col-sm-12">
                                 <center>
-                                    <a href="" class="btn btn-success">View</a>
+                                    <a href="{% url 'product_view' item.id %}" class="btn btn-success">View</a>
                                     <a href="{% url 'add_cart' item.id item.category_id%}" class="btn btn-secondary">Cart</a>
         
                                 </center>
