@@ -1,0 +1,319 @@
+{% extends 'index/index_user/index_base_user.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+  body {
+
+    background-image: url(https://media.istockphoto.com/id/1206800961/photo/online-shopping-and-payment-man-using-tablet-with-shopping-cart-icon-digital-marketing.jpg?b=1&s=612x612&w=0&k=20&c=mwZYTXRUffNG-igVygp49KPbBT4Dp0va1MxomnP3j9M=);
+    width: 100%;
+ 
+    background-position: center;
+    background-size: cover;
+   
+    position: relative;
+
+
+    }
+
+    html {
+        background: rgb(0, 0, 0);
+       
+        font-family: sans-serif;
+      }
+      
+      *,
+      ::after,
+      ::before {
+        box-sizing: border-box;
+      }
+      
+      @keyframes slide-up2 {
+        0% {
+          transform: translateY(0.5em);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      
+      @keyframes glow-load {
+        0% {
+          box-shadow: none;
+        }
+        100% {
+          box-shadow: 0px 0px 50px  black;
+        }
+      }
+      
+      @keyframes continuous-glow {
+        0% {
+          box-shadow: 0 0 5px #142023,
+            inset 0 0 5px #142023, 0 2px 0 #000;
+        }
+        100% {
+          box-shadow: 0 0 20px #5e6e79,
+            inset 0 0 10px #5e6e79
+        }
+      }
+      
+      @keyframes blur-load {
+        0% {
+          opacity: 0;
+          filter: blur(0.2em);
+        }
+        100% {
+          opacity: 1;
+          filter: blur(0);
+        }
+      }
+      
+      .form-container {
+        margin: 0 auto;
+        width: 90%;
+      }
+      
+      .form-item,
+      .textarea-div {
+        opacity: 0;
+      }
+      
+      .form-item1 {
+        animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.3s 1 slide-up2;
+        animation-fill-mode: forwards;
+      }
+      
+      .form-item2 {
+        animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.4s 1 slide-up2;
+        animation-fill-mode: forwards;
+      }
+      
+      .form-item3 {
+        animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.5s 1 slide-up2;
+        animation-fill-mode: forwards;
+      }
+      
+      .form-item4 {
+        animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s 1 slide-up2;
+        animation-fill-mode: forwards;
+      }
+      .form-item5 {
+        animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s 1 slide-up2;
+        animation-fill-mode: forwards;
+      }
+      .form-item6 {
+        animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s 1 slide-up2;
+        animation-fill-mode: forwards;
+      }
+      .form-item7 {
+        animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s 1 slide-up2;
+        animation-fill-mode: forwards;
+      }
+      .form-item8 {
+        animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s 1 slide-up2;
+        animation-fill-mode: forwards;
+      }
+      .form-item9 {
+        animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s 1 slide-up2;
+        animation-fill-mode: forwards;
+      }
+      form {
+        background-color: rgb(12, 12, 12);
+        border-radius: 1.25em;
+        padding: 1.5em;
+        animation: 1s cubic-bezier(0.47, 0, 0.745, 0.715) 0.7s 1 glow-load;
+        animation-fill-mode: forwards;
+      }
+      
+      form label {
+        color: rgb(191, 191, 191);
+      }
+      
+      option,
+      select,
+      input,
+      .textarea-div textarea {
+        background: #142023;
+        color: rgb(255, 229, 195);
+      }
+      
+      .form-header {
+        text-align: center;
+        font-size: 28px;
+        padding: 0;
+        margin-bottom: 1.25em;
+        color:  #5e6e79;
+      }
+      
+      label {
+        display: block;
+        margin-bottom: 0.35em;
+        margin-top: 0.35em;
+      }
+      
+      input:not(.btn),
+      select {
+        padding: 0.625em 1em;
+        width: 100%;
+        outline: 0;
+        margin-bottom: 1.25em;
+        border-radius: 1.25em;
+        border: 0;
+      }
+      
+      .textarea-div {
+        width: 100%;
+      }
+      
+      textarea {
+        padding: 10px;
+        width: 100%;
+        outline: 0;
+        margin-bottom: 20px;
+        border-radius: 20px;
+        border: 0;
+        font-size: 14px;
+        height: 100px;
+      }
+      
+      .btn-container {
+        margin: auto;
+        padding-bottom: 1em;
+      }
+      
+      .form-btn {
+        background: rgb(12, 12, 12);
+        border: none;
+        margin-top: 1em;
+        font-size: 20px;
+        padding: 0.5em;
+      }
+      
+      .btn-glow {
+        animation: 0.5s ease-out 0s 1 blur-load;
+        border-radius: 1em;
+        color: white;
+        transition: 0.4s;
+      }
+      
+      .btn-glow:hover {
+        box-shadow: 0px 0px 10px #f0860c;
+      }
+      .form-btn {
+        padding-left: 20px;
+        padding-right: 20px;
+        background: #142023;
+        color: white;
+      }
+      
+      .form-btn:hover {
+        background: #5e6e79;
+        color: white;
+      }
+      
+      .form-container input:focus,
+      .form-container select:focus,
+      .form-container textarea:focus {
+        animation: continuous-glow 800ms ease-out infinite alternate;
+        box-shadow: 0 0 5px #f0860c, inset 0 0 5px #f0860c, 0 2px 0 #000;
+        color: rgb(255, 229, 195);
+      }
+      
+      @media only screen and (min-width: 35.8em) {
+        .form {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+        }
+      
+        .form-item {
+          width: 45%;
+        }
+      
+        .form-container {
+          padding: 5em 0;
+          width: 80%;
+        }
+      }
+      
+      @media only screen and (min-width: 60.625em) {
+        .form-container {
+          padding: 8em 0;
+          width: 70%;
+        }
+      }
+      
+</style>
+<section class="form-container">
+    <form action = "{% url 'profile_user_creation' %}" method = "POST" enctype="multipart/form-data">
+       {% csrf_token %}
+    <h1 class="form-header">ARTIST CREATION</h1>
+    <div class="form">
+      <div class="form-item form-item1">
+        <label for="firstname">First Name</label>
+        <input id="firstname" type="text" name="firstname" value="{{user.name}}"/>
+      </div>
+
+      <div class="form-item form-item1">
+        <label for="lastname">Last Name</label>
+        <input for="lastname" type="text" name="lastname" value="{{user.lastname}}"/>
+      </div>
+
+      <div class="form-item form-item2">
+        <label for="phonenumber">Phone Number</label>
+        <input id="phonenumber" type="tel" name="phonenumber" value="{{user.phone_number}}"/>
+      </div>
+
+      <div class="form-item form-item2">
+        <label for="email">Email</label>
+        <input id="email" type="email" name="email" value="{{user.email}}"/>
+      </div>
+
+      <div class="form-item form-item3">
+        <label for="gender ">Gender</label>
+        <select name="gender">
+          <option value="{{user.gender}}" selected>{{user.gender}}</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+         
+        </select>
+      </div>
+
+      <div class="form-item form-item3">
+        <label for=" date_of_birth">Date of Birth</label>
+        <input id="dob" type="date" name="date_of_birth" value="{{user.date_of_birth| date:'Y-m-d'}}"/>
+      </div>
+
+
+        <div class="form-item form-item4">
+            <label for="Address">Secondary Number</label>
+            <input id="Profection" type="text" name="secondnumb" />
+         </div>
+
+         <div class="form-item form-item5 ml-5">
+            <label for="height">Profile</label>
+            <input id="height" type="file" name="propic">
+         </div>
+         <div class="textarea-div form-item9">
+          <label for="message"><Address></Address></label>
+          <textarea id="message" type="text" name="address" placeholder="Address"></textarea>
+        </div>
+         
+      <div class="btn-container">
+        <input id="submit" class="btn btn-glow form-btn" type="submit" name="submit" value="Submit" />
+      </div>
+    </div>
+  </form>
+</section>
+{% endblock %}
+
+
+
+
+
+
+
