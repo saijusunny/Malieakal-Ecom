@@ -2,165 +2,37 @@
 {% load static %}
 
 {% block content %}
-<style>
-    body {
-        margin: 0;
-        font-family: 'Segoe UI', Arial, sans-serif;
-        background-color: #f2f2f2;
-    }
-    .container-fluid {
-        background: white;
-        margin: 30px auto; /* Add some top margin for the gap from the menu bar */
-        border-radius: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        max-width: 1200px;
-        padding: 20px; /* Add some padding to the container */
-    }
-    .container-fluid .highlight-image {
-        transition: transform 0.3s ease-out;
-        max-width: 100%; /* Set the image width to fit the content container */
-        max-height: 400px; /* Set a maximum height for the image */
-        height: auto;
-        display: block; /* Remove any potential extra spacing */
-        margin: 0 auto; /* Center the image horizontally */
-    }
-    .container-fluid .highlight-image:hover {
-        border: 2px solid #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        transform: scale(1.05);
-    }
-    .container-fluid .product-details {
-        padding: 30px;
-    }
-    .container-fluid h1 {
-        color: black;
-        font-size: 36px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        margin: 0;
-        padding: 10px 0;
-        text-align: center;
-    }
-    .container-fluid hr {
-        border: 1px solid #fff;
-        width: 50px;
-        margin: 10px auto;
-    }
-    .container-fluid p {
-        color: black;
-        font-size: 16px;
-        line-height: 1.6;
-        margin-bottom: 20px;
-    }
-    .container-fluid .rating-badge {
-        background-color: #4caf50;
-        color: black;
-        font-size: 14px;
-        padding: 5px 10px;
-        border-radius: 5px;
-        display: inline-block;
-    }
-    .container-fluid .price {
-        font-size: 30px;
-        color: black;
-        margin: 0;
-        padding: 10px 0;
-        text-align: center;
-    }
-    .container-fluid .price span.offer {
-        font-size: 18px;
-        background-color: green;
-        padding: 5px 10px;
-        border-radius: 5px;
-        color: white;
-    }
-    .container-fluid .btn-container {
-        text-align: center;
-        display: flex;
-        flex-direction: row; /* Set it to row layout for larger screens */
-        justify-content: center; /* Center the buttons horizontally */
-    }
-    .container-fluid .btn {
-        display: inline-block;
-        margin: 10px;
-        padding: 15px 30px;
-        border-radius: 30px;
-        font-size: 16px;
-        font-weight: bold;
-        text-transform: uppercase;
-        text-decoration: none;
-        color: white;
-        transition: background-color 0.3s ease;
-    }
-    
-    /* Center the container on large screens */
-    @media screen and (min-width: 992px) {
-        .container-fluid {
-            max-width: 90%;
-            overflow: hidden;
-        }
-    }
-    /* Show scroll model on mobile devices */
-    @media screen and (max-width: 768px) {
-        .container-fluid {
-            max-width: 100%;
-            overflow-y: scroll;
-            padding: 0; /* Remove padding to maximize the available space */
-        }
-        /* Adjust the button styles for mobile devices */
-        .btn-container {
-            flex-direction: column; /* Set it to column layout for mobile devices */
-        }
-        .btn {
-            width: 100%;
-            margin: 10px 0;
-        }
-    }
-    /* Responsive styles */
-    @media screen and (max-width: 480px) {
-        h1 {
-            font-size: 28px;
-        }
-        .price {
-            font-size: 24px;
-        }
-    }
-</style>
-<div class="center-wrapper m-2">
-    <div class="container-fluid">
-        <div class="col-sm-12 col-md-4 col-lg-4" style="text-align: center; margin: 0 auto;">
-            {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <div class="alert {{ message.tags }}">{{ message }}</div>
-                {% endfor %}
-            </div>
-            {% endif %}
-        </div>
-        <div class="row">
-            <div class="col-lg-6 col-sm-12 mt-2">
-                <img class="mainimg img-fluid rounded mx-auto d-block rounded highlight-image" src="{{ item.image.url }}" alt="">
-            </div>
-            <div class="col-lg-6 col-sm-12 product-details">
-                <h1>{{ item.name }}</h1>
-                <hr>
-                <!-- <p>{{ item.title_description }}</p> -->
 
-                <p>{{ item.description }}</p>
-              
-                <p class="price">
-             
-                    <i class="fa fa-rupee"></i>{{ rp }} <s class="m-2"></s>
-                    <span class="offer bg-success">{{ item.offer }}% Off</span>
-                 
-                </p>
-                <div class="btn-container">
-                    
-                   
-                    <a href="{% url 'add_cart_pr_view' item.id item.category_id%}" class="btn btn-success">Add To Cart</a>
-                    
-                </div>
-            </div>
+<style>
+    @import url("https://fonts.googleapis.com/css?family=Montserrat|Quicksand");
+    body{
+        background-color: #f2f2f2;
+        font-family:Arial, Helvetica, sans-serif;
+    }
+   
+    
+</style>
+<div class="container-fluid ">
+    <div class="row  bg-light p-3 ml-3 mr-3" style="margin-top: 8rem; margin-bottom: 2rem; border-radius: 20px;" >
+        <div class="col-sm-12 col-md-6 col-lg-6" style="text-align: center;">
+            <img src="{{ item.image.url }}"  class="w-75" alt="">
         </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 mt-4 content" style="text-align: left;">
+            <h1>{{ item.name }}</h1>
+            <p><span style="font-weight: bolder; font-size: 18px; color: red;">₹{{item.offer_price}}</span> <span disabled style="font-size: 16px;"><strike>₹{{item.price}}</strike></span> <span style="color: green;font-size: 14px;">{{item.offer}}%</span></p>
+            <p style="font-weight: bold;">{{item.title_description}}</p>
+            <p style="font-weight: bold;">About this item</p>
+        
+            <p>{{ item.description }}</p>
+            
+            <a href="{% url 'add_cart_pr_view' item.id item.category_id%}" class="btn btn-danger form-control w-50"> Add To Cart</a>
+            
+            
+        </div>
+        
     </div>
 </div>
+
+
+
 {% endblock %}

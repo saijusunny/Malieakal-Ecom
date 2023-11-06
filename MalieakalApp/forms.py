@@ -39,7 +39,8 @@ class User_RegistrationForm(forms.ModelForm):
                 'lastname': forms.TextInput(attrs={'class': 'form-control item','placeholder':'Lastname'}),
                 'nickname': forms.TextInput(attrs={'class': 'form-control item','placeholder':'Nickname'}),
                 'phone_number': forms.TextInput(attrs={'class': 'form-control item','placeholder':'Phone number','pattern': "^(0|\+91)?(?!6789)[6-9]\d{9}$",
-    'message': "Enter a valid phone number"}),
+                'message': "Enter a valid phone number"}),
+                'otp': forms.HiddenInput(attrs={'class': 'form-control item','placeholder':'Experience', 'value':'0',}),
  
 
                 'email': forms.EmailInput(attrs={'class': 'form-control item','placeholder':'Email','id':'email','pattern':"[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"}),
@@ -55,3 +56,28 @@ class User_RegistrationForm(forms.ModelForm):
             super().__init__(*args, **kwargs)
             self.fields['username'].required = False
             self.fields['password'].required = False
+
+
+
+
+class ImageForm(forms.Form):
+    image_1 = forms.ImageField(label='Banner 1(resolution W-1600px H-529px)')
+    label_1 = forms.CharField(label='Banner Title 1', max_length=100)
+
+    image_2 = forms.ImageField(label='Banner 2(resolution W-1600px H-529px)')
+    label_2 = forms.CharField(label='Banner Title 2', max_length=100)
+
+    image_3 = forms.ImageField(label='Banner 3(resolution W-1600px H-529px)')
+    label_3 = forms.CharField(label='Banner Title 3', max_length=100)
+
+    image_4 = forms.ImageField(label='Banner 4(resolution W-1600px H-529px)')
+    label_4 = forms.CharField(label='Banner Title 4', max_length=100)
+
+    image_5 = forms.ImageField(label='Banner 5(resolution W-1600px H-529px)')
+    label_5 = forms.CharField(label='Banner Title 5', max_length=100)
+
+
+class UserRegistrationForm(forms.ModelForm):
+    class Meta:
+        model = User_Registration
+        fields = '__all__'

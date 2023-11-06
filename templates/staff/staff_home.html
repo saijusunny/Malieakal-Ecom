@@ -1,163 +1,282 @@
 {% extends 'staff/staff_base.html' %}
 {% load static %}
 {% block content %}
+
 <style>
-    body{
-        background-color: gray;
-        width: 100%;
-    }
-    .card:hover{
-        box-shadow: 0 0 10px 2px hsl(0, 0%, 0%);
-        float: left;
-        flex: auto;
-    }
-    #div2 {
-      
-      position: relative;
-      animation-name: example1;
-      animation-duration: 2s;  
-      animation-fill-mode: forwards;
-    }
-    @keyframes example1 {
-      from {top:100px;}
-      to {top: 30px; color: rgb(199, 197, 197);}
-      
+    
+
+    .card {
+        background-color: transparent;
+        border: none;
+        margin: 10px;
+        
     }
 
-    /* rating */
-    .rating {
-    width: 300px;
-    margin: 0 auto 1em;
-    font-size: 45px;
-    overflow:hidden;
+    .container {
+        width: 100%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        border: none;
+        flex-wrap: wrap;
+        max-width: 1000px;
+        margin-top: 100px; /* Add margin to the top */
+        margin-bottom: 10px; /* Add margin to the bottom */
     }
-    .rating input {
-    float: right;
-    opacity: 0;
-    position: absolute;
+
+    .container .card {
+        position: relative;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center the content vertically */
     }
-    .rating a, 
-    .rating label {
-                float:right;
-                color: #aaa;
-                text-decoration: none;
-                -webkit-transition: color .4s;
-                -moz-transition: color .4s;
-                -o-transition: color .4s;
-                transition: color .4s;
-            }
-    .rating label:hover ~ label,
-    .rating input:focus ~ label,
-    .rating label:hover,
-            .rating a:hover,
-            .rating a:hover ~ a,
-            .rating a:focus,
-            .rating a:focus ~ a		{
-                color: orange;
-                cursor: pointer;
-            }
-            .rating2 {
-                direction: rtl;
-            }
-            .rating2 a {
-                float:none
-            }
+
+    .container .card .icon {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #f00;
+        transition: 0.7s;
+        z-index: 1;
+    }
+
+    .container .card:nth-child(1) .icon {
+        background: #e07768;
+    }
+
+    .container .card:nth-child(2) .icon {
+        background: #6eadd4;
+    }
+
+    .container .card:nth-child(3) .icon {
+        background: #4aada9;
+    }
+
+    .container .card .icon .fa {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 80px;
+        transition: 0.7s;
+        color: #fff;
+    }
+
+    .container .card .face {
+        width: 300px;
+        height: 200px;
+        transition: 0.5s;
+    }
+
+    .container .card .face.face1 {
+        position: relative;
+        background: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        transform: translateY(100px);
+    }
+
+    .container .card:hover .face.face1 {
+        background: #ff0057;
+        transform: translateY(0px);
+    }
+
+    .container .card .face.face1 .content {
+        opacity: 1;
+        transition: 0.5s;
+        text-align: center;
+    }
+
+    .container .card:hover .face.face1 .content {
+        opacity: 1;
+    }
+
+    .container .card .face.face1 .content img.banner, .container .card .face.face1 .content img.category {
+        max-width: 100px; /* Adjust the banner and category image size */
+        
+        
+    }
+    .content img.category{
+      width: 40px;
+      margin-top: 10%;
+    }
+    .content img.banner{
+      width: 40px;
+      margin-top: 10%;
+    }
+
+    .container .card .face.face1 .content h2 {
+        margin-top: 10px; /* Add margin to the top of the heading */
+        text-align: center;
+        color: #fff;
+        font-size: 24px;
+        color: #414141;
+        font-family: monospace;
+        letter-spacing: 5px;
+        text-shadow: 2px 2px 8px #000;
+    }
+
+    .container .card .face.face2 {
+        position: relative;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        box-sizing: border-box;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+        transform: translateY(-100px);
+    }
+
+    .container .card:hover .face.face2 {
+        transform: translateY(0);
+    }
+
+    .container .card .face.face2 .content p {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        color: #414141;
+    }
+
+    .container .card .face.face2 .content h3 {
+        margin: 0 0 10px 0;
+        padding: 0;
+        color: #fff;
+        font-size: 24px;
+        text-align: center;
+        color: #414141;
+    }
+
+    .container a {
+        text-decoration: none;
+        color: #414141;
+    }
 </style>
 
-<div style="background-color: gray;">
-    
-    <div class="row mt-3 mb-3" style="background-color: gray;">
-      
-      <div class="row mt-3 " style="background-color:gray">
-        <div class="col-sm-12">
-          <div class="row">
-            <div class="col-sm-12 p-3 justify-content-right text-right" style="text-align: right;">
-                <!-- <input type="text" class="form-control search text-dark" id="search" placeholder="Search here..."> -->
-                <a href="{% url 'new_module'%}" class="btn btn-primary" style="width: 15%;">Add Product</a>
-            </div>
-        </div>         
-    </div>
-  <div style="background-color:gray;padding-bottom: 15%;padding-top: 2%;">
-      <div class="row pt-3">
-        <div class="col-sm-12 col-md-4 col-lg-4" style="text-align: center; margin: 0 auto;">
-            {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <div class="alert {{ message.tags }}">{{ message }}</div>
-                {% endfor %}
-            </div>
-            {% endif %}
-        </div>
-          
-      </div>
-      <fieldset1 id="field1">
-    <div class="row justify-content-center"> <!-- Add the justify-content-center class to center the cards -->
-        {% for data in items %}
-            <div class="col-sm-12 col-md-4 col-lg-4 ps-4 pe-4 outers">
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-6">
-                            <img src="{{data.image.url}}" class="img-fluid rounded-start w-100" alt="..." style="height: 18rem;">
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card-body">
-                                <center>
-                                    <h5 class="card-title" style="font-family: cursive;">{{data.name}}</h5>
-                                </center>         
-                                <center>                  
-                                    <h5 style="color: #D8A382;">₹ {{data.price}} <span style="font-size: 14px; color: #04A454;">{{item.offer}}% off</span></h5>
-                                </center>
-                                <p class="card-text">{{data.title_description}}</p>
-                                <div class="row" style="bottom: 0;">
-                                    <div class="col-sm-12">
-                                        <center>
-                                            <a href="{% url 'new_module_edit' data.id %}" class="btn btn-success">Edit</a>
-                                            <a href="{% url 'delete_item' data.id %}" onclick="return confirm('Are you sure?')"class="btn btn-secondary">Delete</a>
-                                          </center>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="container">
+    <div class="card"style="margin-top: -4rem;" >
+        <div class="face face1" >
+            <div class="content">
+                <div class="icon">
+                    <h2 class="text-light">BANNER MANAGEMENT</h2>
                 </div>
             </div>
-        {% endfor %}
+        </div>
+        <div class="face face2" >
+            <div class="content">
+                <h3>
+                    {%if banner%}
+                    <a href="{% url 'staff_edit_banner' banner.id %}" class=""><button type="button" class="btn btn-dark">Edit Banner</button></a>
+                    {%else%}
+                    <a href="{% url 'staff_upload_images' %}" class=""><button type="button" class="btn btn-dark">Add Banner</button></a>
+                    {%endif%}
+                </h3>
+            </div>
+        </div>
     </div>
-</fieldset1>
+    <div class="card" style="margin-top: -4rem;">
+        <div class="face face1">
+            <div class="content">
+                <div class="icon">
+                    <h2 class="text-light mt-2">PRODUCT MANAGEMENT</h2>
+                </div>
+            </div>
+        </div>
+        <div class="face face2">
+            <div class="content">
+                <h3>
+                  <a href="{% url 'new_module' %}" class="center-vertical"><button type="button" class="btn btn-dark center-vertical ">Add Product</button></a>
+                </h3>
+                <p>
+                  <a href="{% url 'staff_itemlist' %}" class="center-vertical"><button type="button" class="btn btn-dark center-vertical mt-2 mx-auto">Product List</button></a>
+              
+                </p>
+                </div>
+        </div>
+    </div>
+    
+    <div class="card" style="margin-top: -4rem;">
+        <div class="face face1" >
+            <div class="content">
+                <div class="icon" style="background-color: #CB7BC5 ;">
+                    <h2 class="text-light mt-2">CATEGORY MANAGEMENT</h2>
+                </div>
+            </div>
+        </div>
+        <div class="face face2">
+            <div class="content">
+                <h3>
+                  <a href="{% url 'staff_category'%}" class=""><button type="button" class="btn btn-dark">Add Category</button></a>                
+                </h3>
+                <p>
+                    <a href="{% url 'staff_categorylist' %}" class="center-vertical"><button type="button" class="btn btn-dark center-vertical mt-2 mx-auto">Category List</button></a>
+                
+                  </p>
+            </div>
+        </div>
+    </div>
+    <div class="card" style="margin-top: -4rem;">
+        <div class="face face1" >
+            <div class="content">
+                <div class="icon" style="background-color: #6C9666 ;">
+                    <h2 class="text-light mt-2">Orders</h2>
+                </div>
+            </div>
+        </div>
+        <div class="face face2">
+            <div class="content">
+                <h3>
+                  <a href="{% url 'staff_view_order'%}" class=""><button type="button" class="btn btn-dark">View Orders</button></a>                
+                </h3>
+                
+            </div>
+        </div>
+    </div>
+    <div class="card" style="margin-top: -4rem;">
+        <div class="face face1" >
+            <div class="content">
+                <div class="icon" style="background-color: #C70039;">
+                    <h2 class="text-light mt-2">User Management</h2>
+                </div>
+            </div>
+        </div>
+        <div class="face face2">
+            <div class="content">
+                <h3>
+                  <a href="{% url 'staff_user_list_view'%}" class=""><button type="button" class="btn btn-dark">View User</button></a>                
+                </h3>
+                
+            </div>
+        </div>
+    </div>
+    <div class="card" style="margin-top: -4rem;">
+        <div class="face face1" >
+            <div class="content">
+                <div class="icon" style="background-color: #FFC300;">
+                    <h2 class="text-light mt-3">OFFER <br>ZONE</h2>
+                </div>
+            </div>
+        </div>
+        <div class="face face2">
+            <div class="content">
+                <h3>
+                  <a href="{% url 'staff_new_offer' %}" class=""><button type="button" class="btn btn-dark">Add Offer</button></a>                
+                </h3>
+                <h3>
+                    <a href="{% url 'staffofferlist' %}" class=""><button type="button" class="btn btn-dark">Offer List</button></a>                </h3>
 
-  </div>
-  <script>
-    const input = document.getElementById('search')
-    input.addEventListener('keyup', (e) => {
-    var inputs = e.target.value.toLowerCase(); //do lowercase
-    document.querySelectorAll('.outers').forEach(function(el) {
-        el.style.display = 'none';
-    });
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
 
-    document.querySelectorAll('.outers .card-title').forEach(function(el) {
-        //compare 
-        if (el.textContent.toLowerCase().indexOf(inputs) > -1) {
-        el.closest('.outers').style.display = "block"; //if match show that div
-        }
-    })
-    })
-</script> 
-
-
-  <script>
-      
-       function fieldset1_function(){
-          document.getElementById('field2').style.display="none";
-          document.getElementById('field1').style.display="block";
-
-       }
-       function fieldset2_function(){
-          document.getElementById('field1').style.display="none";
-          document.getElementById('field2').style.display="block";
-
-       }
- 
-   </script> 
 
 
 {% endblock %}

@@ -25,7 +25,8 @@ class User_Registration(models.Model):
     username = models.CharField(max_length=255,blank=True,null=True)
     password = models.CharField(max_length=255,blank=True,null=True)
     last_login = models.DateTimeField(null=True, blank=True)
-    status =models.CharField(max_length = 255,blank=True,null=True)
+    status =models.CharField(max_length = 255,blank=True,null=True,default="active")
+    otp =  models.IntegerField(default=0)
     def _str_(self):
         return self.nickname
     
@@ -43,8 +44,8 @@ class Profile_User(models.Model):
     gender = models.CharField(max_length=255,blank=True,null=True)
     date_of_birth = models.DateField(null=True)
     address =  models.TextField(blank=True,null=True)
-    pro_pic = models.ImageField(upload_to='images/', default='static/images/default.png')
-
+    pro_pic = models.ImageField(upload_to='images/', default='static/images/logo/icon.png')
+    joindate = models.DateField(null=True)
     def __str__(self):
         return f"{self.firstname} {self.lastname}"
 
@@ -59,21 +60,29 @@ class bannerads(models.Model):
     banner_title3 = models.CharField(max_length=255,blank=True,null=True)
     banner_title4 = models.CharField(max_length=255,blank=True,null=True)
     banner_title5 = models.CharField(max_length=255,blank=True,null=True)
+
 class category(models.Model):
     category_name=  models.CharField(max_length=255,blank=True,null=True)
-    image = models.FileField(upload_to='images/category-banner', default='static/images/default.png')
+    image = models.FileField(upload_to='images/category-banner', default='static/images/logo/noimage.jpg')
+    def _str_(self):
+        return self.category_name
 
+class sub_category(models.Model):
+    subcategory=  models.CharField(max_length=255,blank=True,null=True)
+    category=models.ForeignKey(category, on_delete=models.SET_NULL, null=True, blank=True)
 class item(models.Model):
     user = models.ForeignKey(User_Registration, on_delete=models.SET_NULL, null=True, blank=True)
-    category= models.ForeignKey(category, on_delete=models.SET_NULL, null=True, blank=True)
+    category= models.ForeignKey(category, on_delete=models.SET_NULL, null=True, blank=True,default=None)
     name = models.CharField(max_length=255,blank=True,null=True)
     title_description = models.CharField(max_length=100,blank=True,null=True)
     description = models.CharField(max_length=255,blank=True,null=True)
-    price = models.FloatField()
-    buying_count = models.IntegerField()
-    offer = models.FloatField()
-    image = models.FileField(upload_to='images/items', default='static/images/default.png')
+    price = models.FloatField(default=0)
+    offer_price=  models.FloatField(default=0)
+    buying_count = models.IntegerField(default=0)
+    offer = models.IntegerField(default=0)
+    image = models.FileField(upload_to='images/items', default='static/images/logo/noimage.jpg')
     under_category=models.CharField(max_length=255,blank=True,null=True,choices = under)
+    sub_category=models.CharField(max_length=255,blank=True,null=True)
 
 class cart(models.Model):
     user = models.ForeignKey(User_Registration, on_delete=models.SET_NULL, null=True, blank=True)
@@ -81,10 +90,26 @@ class cart(models.Model):
 
 class checkout(models.Model):
     user = models.ForeignKey(User_Registration, on_delete=models.SET_NULL, null=True, blank=True)
-    item = models.ForeignKey(item, on_delete=models.SET_NULL, null=True, blank=True)
-    qty=models.IntegerField(null=True, blank=True)
-    item_total=models.FloatField(null=True, blank=True)
-    item_price=models.FloatField(null=True, blank=True)
-    item_name = models.CharField(max_length=255,blank=True,null=True)
+    total_amount=models.FloatField(default=0,null=True, blank=True)
     date=models.DateTimeField(null=True, blank=True)
+    profile = models.ForeignKey(Profile_User, on_delete=models.SET_NULL, null=True, blank=True)
+
+
+class checkout_item(models.Model):
+    checkout = models.ForeignKey(checkout, on_delete=models.SET_NULL, null=True, blank=True)
+    item = models.ForeignKey(item, on_delete=models.SET_NULL, null=True, blank=True)
+    item_name= models.CharField(max_length=255,blank=True,null=True)
+    qty=models.IntegerField(null=True, blank=True)
+    item_price=models.FloatField(null=True, blank=True)
+
+
+class offer_zone(models.Model):
+    user = models.ForeignKey(User_Registration, on_delete=models.SET_NULL, null=True, blank=True)
+    image =  models.FileField(upload_to='images/items', default='static/images/logo/noimage.jpg')
+    title = models.CharField(max_length=255,blank=True,null=True)
+    description = models.TextField(max_length=200,blank=True,null=True)
+    price=  models.FloatField(default=0)
+    offer_price=  models.FloatField(default=0)
+    offer= models.IntegerField(default=0)
+
 
