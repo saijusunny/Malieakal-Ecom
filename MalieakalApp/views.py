@@ -200,6 +200,7 @@ def edit_staff(request,id):
         pro.item_access = request.POST.get('item_access')
         pro.offer_access = request.POST.get('offer_access')
         pro.order_access = request.POST.get('order_access')
+        pro.arrival_access = request.POST.get('arrival_access')
         pro.save()
         
         return redirect ("staff_all_list")
@@ -431,6 +432,7 @@ def add_staff(request):
                 pro.item_access = request.POST.get('item_access')
                 pro.offer_access = request.POST.get('offer_access')
                 pro.order_access = request.POST.get('order_access')
+                pro.arrival_access = request.POST.get('arrival_access')
                 pro.save()
    
         
@@ -721,7 +723,7 @@ def ad_save_new_arrival(request):
         return redirect('admin_home')
 
     return render(request,'admin/ad_add_new_arrival.html')
-    
+
 def ad_newarrival_management(request):
     return render(request,'admin/ad_newarrival_management.html')
 
@@ -1231,6 +1233,63 @@ def staff_delete_user(request,id):
     form.delete()
     pro.delete()
     return redirect ("staff_user_list_view")
+
+def staff_save_new_arrival(request):
+    ids=request.session['userid']
+    usr=Profile_User.objects.get(user=ids)
+        
+    if request.method == 'POST':
+        image = request.FILES.get('image')
+        title = request.POST["title"]
+        
+        price = request.POST["price"]
+        offer = request.POST["offer_percentage"]
+        offer_price =  request.POST["offer_price"]
+        offer_zone_instance = new_arrival(
+            image = image,
+            title = title ,
+            
+            price = price ,
+            offer = offer ,
+            offer_price=offer_price,
+        )
+        offer_zone_instance.save()
+        return redirect('staff_home')
+
+    return render(request,'staff/staff_add_new_arrival.html',{'user':usr})
+    
+
+
+def staff_newarrival(request):
+    ids=request.session['userid']
+    usr=Profile_User.objects.get(user=ids)
+    offerlist = new_arrival.objects.all()
+    return render(request, 'staff/staff_arrival_list.html', {'offerlist': offerlist,'user':usr})
+
+def staff_edit_newarrival(request,id):
+
+    if request.method == "POST":
+        form = new_arrival.objects.get(id=id)
+        if request.POST.get('image',None)=="":
+            form.image == form.image
+        else:
+            form.image = request.FILES.get('image',None)
+        form.title = request.POST.get('title',None)
+        form.description = request.POST.get('description',None)
+        form.price = request.POST.get('price',None)
+        form.offer = request.POST.get('offer',None)
+        form.offer_rice = request.POST.get('offer_price',None)
+        
+        form.save()
+   
+        
+        return redirect ("staff_newarrival")
+    return redirect ("staff_newarrival")
+
+def staff_delete_newarrival(request,id):
+    form = new_arrival.objects.get(id=id)
+    form.delete()
+    return redirect ("staff_offerlist")
 #######################################logout################### <<<<<<<<<< USER MODULE >>>>>>>>>>>>>>>>
 
 def base_sub(request):

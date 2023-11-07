@@ -52,6 +52,8 @@ class Profile_User(models.Model):
     item_access = models.CharField(max_length=255,blank=True,null=True, default="false")
     offer_access = models.CharField(max_length=255,blank=True,null=True, default="false")
     order_access = models.CharField(max_length=255,blank=True,null=True, default="false")
+    arrival_access = models.CharField(max_length=255,blank=True,null=True, default="false")
+
     def __str__(self):
         return f"{self.firstname} {self.lastname}"
 

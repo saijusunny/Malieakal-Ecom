@@ -96,7 +96,10 @@ urlpatterns = [
     path('staff_edit_banner/<int:id>', views.staff_edit_banner, name='staff_edit_banner'),
     path('staff_subcategory', views.staff_subcategory, name='staff_subcategory'),
     path('staff_edit_subcategory/<int:id>', views.staff_edit_subcategory, name='staff_edit_subcategory'),
-    
+    path('staff_save_new_arrival/', views.staff_save_new_arrival, name='staff_save_new_arrival'),
+    path('staff_edit_newarrival/<int:id>', views.staff_edit_newarrival, name='staff_edit_newarrival'),
+    path('staff_delete_newarrival/<int:id>', views.staff_delete_newarrival, name='staff_delete_newarrival'),
+    path('staff_newarrival/', views.staff_newarrival, name='staff_newarrival'),
     ############################################################ <<<<<<<<< User MODULE >>>>>>>>>>>>>>>>>
 
     path('user_registration/',views.user_registration,name='user_registration'),

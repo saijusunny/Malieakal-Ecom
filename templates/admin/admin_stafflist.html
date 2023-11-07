@@ -230,6 +230,22 @@
                             <label for="password">Order Access</label>
                         </div>
                     </div>
+
+                    <div class="row">
+                      <div class="col-sm-1">
+                        {% if l.arrival_access == "true"%}
+                          <input type="checkbox" id="order_access" name="order_access" value="true" class="text-light" checked>
+                          {%else%}
+                          <input type="checkbox" id="arrival_access" name="arrival_access" value="true" class="text-light">
+                        {%endif%}
+                      </div>
+
+                      <div class="col-sm-11">
+                          <label for="password">Arrival Access</label>
+                      </div>
+                  </div>
+
+                    
                   {%else%}
           
                   {%endif%}
