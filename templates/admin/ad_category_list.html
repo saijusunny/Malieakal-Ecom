@@ -56,7 +56,12 @@
             
                 
                 <td class="action-buttons">
-                    <a href="" class="btn btn-success" data-toggle="modal" data-target="#dis{{item.id}}"> Edit</a>
+                  <a href="" class="btn btn-primary" data-toggle="modal" data-target="#view{{item.id}}"> View</a>
+
+                    <a href="" class="btn btn-success" data-toggle="modal" data-target="#subcat{{item.id}}"> Edit</a>
+
+                    
+
                     <a href="{% url 'delete_cat' item.id%}"  onclick="return confirm('Are you sure, you want to delete it?')" class="btn btn-danger"> Delete</a>
                 
                 </td>
@@ -69,6 +74,99 @@
       </div>
     </div>
   </div>
+  {%for item in cat%}
+  <form action="{% url 'edit_subcategory' item.id%}" method="POST" enctype="multipart/form-data">
+
+    <div class="rowmt-5 modal fade" id="subcat{{item.id}}">
+      <div class="modal-dialog bd-example-modal-xl modal-dialog-centered" role="document" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-content modal-xl" style="background-color: #191c24;">
+          <div class="card ">
+            <div class="card-body">
+              <button type="button" class="close text-light" data-dismiss="modal" aria-label=""
+                style="background-color: #191c24;border:none;float: right;font-size: 20px;">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              
+              
+                {% csrf_token %}
+                <div class="row mb-4">
+                  <div class="col-sm-12"style="border-radius: 10px;">
+                    <h3 class="text-uppercase" style="color:#fff; font-family:bold; font-size:34px;" >Add Sub Category</h3>
+                    <hr>
+                  </div>
+                </div>
+                
+                
+                <div class="row mt-3">
+                  <div class="col-sm-11">
+              
+                    <div class="form-item form-item1">
+                      <label for="categories" style="text-align: left;">Categories</label>
+                      <select name="category_name" id="categories" class="form-control text-light">
+                        <option value="{{ item.category_name}}" selected>{{ item.category_name}}</option>
+                        {% for cat in cat_sub %}
+                        <option value="{{ cat.subcategory }}">
+                          {{ cat.subcategory }}
+                        </option>
+                        {% endfor %}
+                      </select>
+                  </div>
+                  
+
+                  {% for cat in cat_sub %}
+                 
+                  {% if cat.category_id == item.id%}
+                  <div class="row pt-1">
+                    <div class="col-sm-12">
+                      
+                      <input type="text" class="drop form-control ml-3 mt-2 text-light" style="border:1px solid #6C7293 ;color:#6C7293;" value="{{cat.subcategory}}" name='subcat[]' placeholder="Sub Category Name" required>
+                    </div>
+                    
+                  </div>
+                  {%endif%}
+                  {% endfor %}
+                  
+          
+                  </div>
+                  <div class="col-sm-1">
+                    <br>
+                    <a href="" class="btn btn-light pb-2 pt-2 mt-1" data-toggle="modal" data-target="#dis{{item.id}}" style="text-align: center;">+</a>
+              
+          
+                  </div>
+                </div>
+          
+                <div class="row mt-3">
+                  <div class="col-sm-12" style="text-align: left;">
+                    <div id="sub_field{{forloop.counter}}">
+                    
+                    </div>
+                    <div class="btn btn-light mt-2" id="add_sub_cat{{forloop.counter}}" onclick="add_admin_sub_cat('{{forloop.counter}}')" title="Add New Sub Category">+</div>
+                    
+                    
+                  </div>
+                </div>
+                
+                <div class="row mt-3">
+                  <div class="col-sm-12" >
+                    <input id="submit" class="btn btn-light " type="submit" name="submit" value="Submit" />
+          
+                  </div>
+                </div>
+          
+          
+            
+            
+            
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  {%endfor%}
 
   {%for item in cat%}
   <form action="{% url 'edit_category' item.id%}" method="POST" enctype="multipart/form-data">
@@ -123,6 +221,54 @@
   </div>
 </form>
 {%endfor%}
+
+
+{%for item in cat%}
+
+  <div class="rowmt-5 modal fade" id="view{{item.id}}">
+    <div class="modal-dialog bd-example-modal-xl modal-dialog-centered" role="document" tabindex="-1" role="dialog"
+      aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-content modal-xl" style="background-color: #191c24;">
+        <div class="card " style="text-align: center;">
+          <div class="card-body">
+            <button type="button" class="close text-light" data-dismiss="modal" aria-label=""
+              style="background-color: #191c24;border:none;float: right;font-size: 20px;">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            
+                <div class="row">
+                  <div class="col-sm-12">
+                    <h5>Sub categories</h5>
+                    
+                  </div>
+                </div>
+                
+                {% for cat in cat_sub %}
+              
+                {% if cat.category_id == item.id%}
+                <div class="row" style="text-align: center ;">
+                  <div class="col-sm-12">
+                    {% if cat%}
+                    <input type="text" class="drop form-control ml-3 mt-2 bg-dark text-light" style="color:#6C7293;text-align: center;cursor: none;" value="{{cat.subcategory}}" disabled>
+                    {% else%}
+                    No Items
+                    {%endif%}
+                  </div>
+                  
+                </div>
+                {%endif%}
+                {% endfor %}
+                
+             
+          
+          
+      
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{%endfor%}
   
   
   <script>
@@ -159,6 +305,22 @@
       $('input[name="selected"]').val(id);
     }
   </script>
-  
+  <script>
+    function add_admin_sub_cat(ids){
+       
+          $(`#sub_field${ids}`).append(
+              `
+              <div class="row pt-1">
+                <div class="col-sm-12">
+                  <input type="text" class="drop form-control ml-3 mt-2 text-light" style="border:1px solid #6C7293 ;color:#6C7293;" name='subcat[]' placeholder="Sub Category Name" required>
+                </div>
+                
+              </div>
+                                              
+              `
+          );
+      };
+
+  </script>
   
 {% endblock %}

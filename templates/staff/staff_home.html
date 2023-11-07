@@ -160,6 +160,7 @@
 </style>
 
 <div class="container">
+    {% if user.banner_access == "true" %}
     <div class="card"style="margin-top: -4rem;" >
         <div class="face face1" >
             <div class="content">
@@ -180,6 +181,9 @@
             </div>
         </div>
     </div>
+    {%else%}
+    {%endif%}
+    {% if user.item_access == "true" %}
     <div class="card" style="margin-top: -4rem;">
         <div class="face face1">
             <div class="content">
@@ -200,6 +204,9 @@
                 </div>
         </div>
     </div>
+    {%else%}
+    {%endif%}
+    {% if user.cat_access == "true" %}
     
     <div class="card" style="margin-top: -4rem;">
         <div class="face face1" >
@@ -221,6 +228,9 @@
             </div>
         </div>
     </div>
+    {%else%}
+    {%endif%}
+    {% if user.order_access == "true" %}
     <div class="card" style="margin-top: -4rem;">
         <div class="face face1" >
             <div class="content">
@@ -238,6 +248,9 @@
             </div>
         </div>
     </div>
+    {%else%}
+    {%endif%}
+    {% if user.user_access == "true" %}
     <div class="card" style="margin-top: -4rem;">
         <div class="face face1" >
             <div class="content">
@@ -255,6 +268,9 @@
             </div>
         </div>
     </div>
+    {%else%}
+    {%endif%}
+    {% if user.offer_access == "true" %}
     <div class="card" style="margin-top: -4rem;">
         <div class="face face1" >
             <div class="content">
@@ -275,6 +291,8 @@
             </div>
         </div>
     </div>
+    {%else%}
+    {%endif%}
 </div>
 
 

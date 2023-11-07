@@ -206,8 +206,8 @@
       </div>
 
       <div class="form-item form-item1">
-        <label for="categories">Categories</label>
-        <select name="categories" id="categories" required>
+        <label for="categories">Sub Categories</label>
+        <select name="subcategories" id="subcategories" required>
           {% for cat in sub_categories %}
             <option value="{{ cat.subcategory }}">{{ cat.subcategory}}</option>
           {% endfor %}

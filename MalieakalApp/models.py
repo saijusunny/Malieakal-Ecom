@@ -46,6 +46,12 @@ class Profile_User(models.Model):
     address =  models.TextField(blank=True,null=True)
     pro_pic = models.ImageField(upload_to='images/', default='static/images/logo/icon.png')
     joindate = models.DateField(null=True)
+    banner_access = models.CharField(max_length=255,blank=True,null=True, default="false")
+    cat_access = models.CharField(max_length=255,blank=True,null=True, default="false")
+    user_access = models.CharField(max_length=255,blank=True,null=True, default="false")
+    item_access = models.CharField(max_length=255,blank=True,null=True, default="false")
+    offer_access = models.CharField(max_length=255,blank=True,null=True, default="false")
+    order_access = models.CharField(max_length=255,blank=True,null=True, default="false")
     def __str__(self):
         return f"{self.firstname} {self.lastname}"
 

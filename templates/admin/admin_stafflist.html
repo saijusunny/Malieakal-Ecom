@@ -140,6 +140,101 @@
                             
                     </div>
                 </div>
+
+                {% for l in prop %}
+                
+                  {% if l.user_id == staff_member.id%}
+                    <div class="row">
+                      <div class="col-sm-1">
+                        {% if l.banner_access == "true"%}
+                          <input type="checkbox" id="banner_access" name="banner_access" value="true" class="text-light" checked>
+                        {%else%}
+                        <input type="checkbox" id="banner_access" name="banner_access" value="true" class="text-light">
+                        {%endif%}
+                      </div>
+
+                      <div class="col-sm-11">
+                          <label for="password">Banner Access</label>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-1">
+                          {% if l.cat_access == "true"%}
+                            <input type="checkbox" id="cat_access" name="cat_access" value="true" class="text-light" checked>
+                          {%else%}
+                          <input type="checkbox" id="cat_access" name="cat_access" value="true" class="text-light">
+                          {%endif%}
+                        </div>
+
+                        <div class="col-sm-11">
+                            <label for="password">Category Access</label>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-1">
+                          {% if l.user_access == "true"%}
+                            <input type="checkbox" id="user_access" name="user_access" value="true" class="text-light" checked>
+                          {%else%}
+                          <input type="checkbox" id="user_access" name="user_access" value="true" class="text-light">
+                          {%endif%}
+                        </div>
+
+                        <div class="col-sm-11">
+                            <label for="password">User Access</label>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-1">
+                          {% if l.item_access == "true"%}
+                            <input type="checkbox" id="item_access" name="item_access" value="true" class="text-light" checked>
+                            {%else%}
+                            <input type="checkbox" id="item_access" name="item_access" value="true" class="text-light">
+                          {%endif%}
+                        </div>
+
+                        <div class="col-sm-11">
+                            <label for="password">Item Access</label>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-1">
+                          {% if l.offer_access == "true"%}
+                            <input type="checkbox" id="offer_access" name="offer_access" value="true" class="text-light" checked>
+                            {%else%}
+                            <input type="checkbox" id="offer_access" name="offer_access" value="true" class="text-light">
+                          {%endif%}
+                        </div>
+
+                        <div class="col-sm-11">
+                            <label for="password">Offer Access</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-1">
+                          {% if l.order_access == "true"%}
+                            <input type="checkbox" id="order_access" name="order_access" value="true" class="text-light" checked>
+                            {%else%}
+                            <input type="checkbox" id="order_access" name="order_access" value="true" class="text-light">
+                          {%endif%}
+                        </div>
+
+                        <div class="col-sm-11">
+                            <label for="password">Order Access</label>
+                        </div>
+                    </div>
+                  {%else%}
+          
+                  {%endif%}
+                {%endfor%}
+                
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center mt-4">
                         <button type="submit" class="btn btn-light">Submit</button>

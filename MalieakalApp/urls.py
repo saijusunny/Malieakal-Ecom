@@ -52,6 +52,8 @@ urlpatterns = [
     path('render_user_pdf/<int:id>', views.render_user_pdf, name='render_user_pdf'),
     path('export_user_excel/', views.export_user_excel, name='export_user_excel'),
     path('admin_subcategory/', views.admin_subcategory, name='admin_subcategory'),
+    path('edit_subcategory/<int:id>', views.edit_subcategory, name='edit_subcategory'),
+
     
     ############################################################ <<<<<<<<< Staff MODULE >>>>>>>>>>>>>>>>>
   

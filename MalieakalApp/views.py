@@ -187,7 +187,15 @@ def edit_staff(request,id):
         form.username = request.POST.get('username',None)
         form.password = request.POST.get('password',None)
         form.save()
+        pro=Profile_User.objects.get(user=form)
    
+        pro.banner_access = request.POST.get('banner_access')
+        pro.cat_access = request.POST.get('cat_access')
+        pro.user_access = request.POST.get('user_access')
+        pro.item_access = request.POST.get('item_access')
+        pro.offer_access = request.POST.get('offer_access')
+        pro.order_access = request.POST.get('order_access')
+        pro.save()
         
         return redirect ("staff_all_list")
     return redirect ("staff_all_list")
@@ -293,7 +301,8 @@ def admin_add_item(request):
         under_category = form_data.get('under_category', None)
         title_description = form_data.get('title_description', None)
         description = form_data.get('description', None)
-        sub_categoryies = form_data.get('sub_category', None)
+        sub_categoryies = form_data.get('subcategories', None)
+       
         categorys = get_object_or_404(category, pk=category_id)
         
 
@@ -324,6 +333,8 @@ def admin_add_item(request):
 def admin_edit_item(request, item_id):
     item_instance = get_object_or_404(item, pk=item_id)
     item_categories = category.objects.all()
+    cat = sub_category.objects.all()
+
     under_choices = (
         ("Home Appliance", "Home Appliance"),
         ("Electronics", "Electronics"),
@@ -334,6 +345,7 @@ def admin_edit_item(request, item_id):
         'item_instance': item_instance,
         'item_categories': item_categories,
         'under_choices': under_choices,
+        'sub_categories':cat,
     }
     if request.method == 'POST':
         form_data = request.POST.dict()
@@ -341,7 +353,7 @@ def admin_edit_item(request, item_id):
         item_instance.price = form_data.get('price', '')
         item_instance.offer = form_data.get('offer_percentage', '')
         item_instance.offer_price = form_data.get('offer_price', '')
-        
+        item_instance.sub_category= form_data.get('subcategories', '')
         item_instance.image = request.FILES.get('image', item_instance.image)
         category_id = form_data.get('categories', None)
         if category_id:
@@ -352,9 +364,9 @@ def admin_edit_item(request, item_id):
         item_instance.description = form_data.get('description', '')
 
         item_instance.save()
-        return redirect('admin_home')
+        return redirect('admin_itemlist')
 
-    return render(request, 'admin/admin_edit_item.html', context)
+    return redirect('admin_itemlist')
 
 
 def admin_delete_item(request,id):
@@ -365,6 +377,8 @@ def admin_delete_item(request,id):
 
 def admin_itemlist(request):
     item_categories = category.objects.all()
+    cat = sub_category.objects.all()
+
     under_choices = (
     ("Home Appliance", "Home Appliance"),
     ("Electronics", "Electronics"),
@@ -372,7 +386,7 @@ def admin_itemlist(request):
     )
     items = item.objects.all()
     return render(request, 'admin/admin_itemlist.html',{'items':items,'item_categories':item_categories,
-        'under_choices':under_choices,})
+        'under_choices':under_choices,'sub_categories':cat,})
 
 def category_management(request):
     return render(request, 'admin/ad_category_management.html')
@@ -403,6 +417,16 @@ def add_staff(request):
                 form.username = request.POST.get('username',None)
                 form.password = request.POST.get('password',None)
                 form.save()
+
+                pro=Profile_User()
+                pro.user=form
+                pro.banner_access = request.POST.get('banner_access')
+                pro.cat_access = request.POST.get('cat_access')
+                pro.user_access = request.POST.get('user_access')
+                pro.item_access = request.POST.get('item_access')
+                pro.offer_access = request.POST.get('offer_access')
+                pro.order_access = request.POST.get('order_access')
+                pro.save()
    
         
         return redirect ("staff_all_list")
@@ -411,11 +435,14 @@ def add_staff(request):
 
 def staff_all_list(request):
     staff_members = User_Registration.objects.filter(role='user1')
-    return render(request, 'admin/admin_stafflist.html', {'staff_members': staff_members})
+    prop = Profile_User.objects.all()
+
+    return render(request, 'admin/admin_stafflist.html', {'staff_members': staff_members,"prop":prop})
 
 def ad_category_list(request):
     cat=category.objects.all()
-    return render(request, 'admin/ad_category_list.html', {'cat': cat})
+    cat_sub = sub_category.objects.all()
+    return render(request, 'admin/ad_category_list.html', {'cat': cat,'cat_sub':cat_sub})
 
 def admin_category(request):
     cat_all=category.objects.all()
@@ -468,6 +495,28 @@ def edit_category(request,id):
             cat.image = request.FILES.get('category_image',None)
        
         cat.save()
+        return redirect('admin_home')
+
+    return redirect('ad_category_list')
+
+def edit_subcategory(request,id):
+    
+    if request.method == 'POST':
+        category_id = request.POST.get('category_name', None)
+        cat=category.objects.get(id=id)
+        subcat = request.POST.getlist('subcat[]')
+        dels=sub_category.objects.filter(category=id).delete()
+
+        if subcat:
+            mappeds = zip(subcat)
+            mappeds=list(mappeds)
+            for ele in mappeds:
+            
+                created = sub_category.objects.get_or_create(subcategory=ele[0], category=cat)
+        else: 
+            pass
+
+
         return redirect('admin_home')
 
     return redirect('ad_category_list')
@@ -891,18 +940,19 @@ def profile_staff_creation(request):
         date_of_birth= request.POST.get('date_of_birth',None)
         pro_pics = request.FILES.get('propic',None)
         secondnumb = request.POST.get('secondnumb',None)
-        profile_artist = Profile_User(
-            firstname=firstname,
-            lastname=lastname,
-            phonenumber=phonenumber,
-            email=email,
-            gender=gender,
-            date_of_birth=date_of_birth,
-            address=address,
-            pro_pic=pro_pics,
-            user=usr,
-            secondnumber=secondnumb
-        )
+        
+
+        profile_artist = Profile_User.objects.get(user=usr)
+        profile_artist.firstname=firstname
+        profile_artist.lastname=lastname
+        profile_artist.phonenumber=phonenumber
+        profile_artist.email=email
+        profile_artist.gender=gender
+        profile_artist.date_of_birth=date_of_birth
+        profile_artist.address=address
+        profile_artist.pro_pic=pro_pics
+        profile_artist.secondnumber=secondnumb
+      
         profile_artist.save()
 
 
