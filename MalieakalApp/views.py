@@ -70,7 +70,12 @@ def login_main(request):
                 
                 request.session['userid'] = member.id
                 if Profile_User.objects.filter(user_id=member.id).exists():
-                    return redirect('staff_home')
+                    prop=Profile_User.objects.get(user_id=member.id)
+                    if prop.firstname == None:
+                        return redirect('profile_staff_creation')
+                    else:
+                        return redirect('staff_home')
+                        
                 else:
                     return redirect('profile_staff_creation')
                 
@@ -523,6 +528,7 @@ def edit_subcategory(request,id):
 def delete_cat(request,id):
     cat=category.objects.get(id=id)
     cat.delete()
+    cat_sub = sub_category.objects.filter(category=id).delete()
     return redirect('admin_home')
 
 def new_form(request):
@@ -691,6 +697,62 @@ def export_user_excel(request):
     workbook.save(response)
 
     return response
+
+
+def ad_save_new_arrival(request):
+
+        
+    if request.method == 'POST':
+        image = request.FILES.get('image')
+        title = request.POST["title"]
+        
+        price = request.POST["price"]
+        offer = request.POST["offer_percentage"]
+        offer_price =  request.POST["offer_price"]
+        offer_zone_instance = new_arrival(
+            image = image,
+            title = title ,
+            
+            price = price ,
+            offer = offer ,
+            offer_price=offer_price,
+        )
+        offer_zone_instance.save()
+        return redirect('admin_home')
+
+    return render(request,'admin/ad_add_new_arrival.html')
+    
+def ad_newarrival_management(request):
+    return render(request,'admin/ad_newarrival_management.html')
+
+def ad_newarrival(request):
+    offerlist = new_arrival.objects.all()
+    return render(request, 'admin/admin_arrival_list.html', {'offerlist': offerlist})
+
+def ad_edit_newarrival(request,id):
+
+    if request.method == "POST":
+        form = new_arrival.objects.get(id=id)
+        if request.POST.get('image',None)=="":
+            form.image == form.image
+        else:
+            form.image = request.FILES.get('image',None)
+        form.title = request.POST.get('title',None)
+        form.description = request.POST.get('description',None)
+        form.price = request.POST.get('price',None)
+        form.offer = request.POST.get('offer',None)
+        form.offer_rice = request.POST.get('offer_price',None)
+        
+        form.save()
+   
+        
+        return redirect ("ad_newarrival")
+    return redirect ("ad_newarrival")
+
+def ad_delete_newarrival(request,id):
+    form = new_arrival.objects.get(id=id)
+    form.delete()
+    return redirect ("ad_offerlist")
 ############################################################# <<<<<<<<<< STAFF MODULE >>>>>>>>>>>>>>
 def staff_base(request):
     ids=request.session['userid']
@@ -714,6 +776,7 @@ def new_module(request):
     ids=request.session['userid']
     usr=Profile_User.objects.get(user=ids)
     item_categories = category.objects.all()
+    cat = sub_category.objects.all()
     under_choices = (
     ("Home Appliance", "Home Appliance"),
     ("Electronics", "Electronics"),
@@ -733,6 +796,7 @@ def new_module(request):
         under_category = form_data.get('under_category', None)
         title_description = form_data.get('title_description', None)
         description = form_data.get('description', None)
+        sub_categoryies = form_data.get('subcategories', None)
 
         categorys = get_object_or_404(category, pk=category_id)
       
@@ -745,6 +809,7 @@ def new_module(request):
             offer = offer_percentage,
             offer_price=offer_prices,
             image = image,
+            sub_category=sub_categoryies,
             under_category = under_category,
             title_description = title_description,
             description = description
@@ -755,6 +820,7 @@ def new_module(request):
         'item_categories':item_categories,
         'under_choices':under_choices,
         'user':usr,
+        'sub_categories':cat,
     }
 
     return render(request,'staff/new_item_add.html',context,)
@@ -763,6 +829,7 @@ def staff_itemlist(request):
     ids=request.session['userid']
     usr=Profile_User.objects.get(user=ids)
     item_categories = category.objects.all()
+    cat = sub_category.objects.all()
     under_choices = (
     ("Home Appliance", "Home Appliance"),
     ("Electronics", "Electronics"),
@@ -770,7 +837,7 @@ def staff_itemlist(request):
     )
     items = item.objects.all()
     return render(request, 'staff/staff_itemlist.html',{'items':items,'item_categories':item_categories,
-        'under_choices':under_choices,'user':usr})
+        'under_choices':under_choices,'user':usr,'sub_categories':cat})
 # ##############################staff item edit###########################
 def staff_itemedit(request, item_id):
     ids=request.session['userid']
@@ -778,6 +845,7 @@ def staff_itemedit(request, item_id):
 
     item_instance = get_object_or_404(item, pk=item_id)
     item_categories = category.objects.all()
+    cat = sub_category.objects.all()
     under_choices = (
         ("Home Appliance", "Home Appliance"),
         ("Electronics", "Electronics"),
@@ -795,6 +863,7 @@ def staff_itemedit(request, item_id):
         item_instance.price = form_data.get('price', '')
         item_instance.offer = form_data.get('offer_percentage', '')
         item_instance.offer_price = form_data.get('offer_price', '')
+        item_instance.sub_category= form_data.get('subcategories', '')
         
         if request.POST.get('image',None) == "":
             item_instance.image = item_instance.image
@@ -890,7 +959,10 @@ def staff_categorylist(request):
     ids=request.session['userid']
     usr=Profile_User.objects.get(user=ids)
     cat = category.objects.all()
-    return render(request, 'staff/staff_categlist.html',{'cat':cat,'user':usr})
+    cat_sub = sub_category.objects.all()
+    return render(request, 'staff/staff_categlist.html',{'cat':cat,'user':usr,'cat_sub':cat_sub})
+
+
 # ################staff Cateory edit #######################
 def edit_staffcateg(request,id):
      if request.method == 'POST':
@@ -903,13 +975,36 @@ def edit_staffcateg(request,id):
             cat.image = request.FILES.get('category_image',None)
        
         cat.save()
+        return redirect('staff_categorylist')
+
+     return redirect('staff_categorylist')
+
+
+def staff_edit_subcategory(request,id):
+    if request.method == 'POST':
+        category_id = request.POST.get('category_name', None)
+        cat=category.objects.get(id=id)
+        subcat = request.POST.getlist('subcat[]')
+        dels=sub_category.objects.filter(category=id).delete()
+
+        if subcat:
+            mappeds = zip(subcat)
+            mappeds=list(mappeds)
+            for ele in mappeds:
+            
+                created = sub_category.objects.get_or_create(subcategory=ele[0], category=cat)
+        else: 
+            pass
+
+
         return redirect('staff_home')
 
-     return redirect('staff_categorylist(')
+    return redirect('staff_categorylist')
 # ################staff Cateory Delete #######################
 def delete_staffcateg(request,id):
     form = category.objects.get(id=id)
     form.delete()
+    cat_sub = sub_category.objects.filter(category=id).delete()
     return redirect ("staff_categorylist")
 
 
@@ -1040,6 +1135,7 @@ def staff_edit_banner(request,id):
 def staff_category(request):
     ids=request.session['userid']
     usr=Profile_User.objects.get(user=ids)
+    cat_all=category.objects.all()
     if request.method == 'POST':
         category_name = request.POST.get('category_name', None)
         image = request.FILES.get('category_image')
@@ -1052,7 +1148,30 @@ def staff_category(request):
         categorys.save()
         return redirect('staff_home')
 
-    return render(request,'staff/staff_category.html',{'user':usr})
+    return render(request,'staff/staff_category.html',{'user':usr,'cat_all':cat_all})
+
+
+def staff_subcategory(request):
+
+    if request.method == 'POST':    
+        
+        category_id = request.POST.get('category_name', None)
+        cat=category.objects.get(id=category_id)
+        subcat = request.POST.getlist('subcat[]')
+
+        if subcat:
+            mappeds = zip(subcat)
+            mappeds=list(mappeds)
+            for ele in mappeds:
+            
+                created = sub_category.objects.get_or_create(subcategory=ele[0], category=cat)
+        else: 
+            pass
+
+
+        return redirect('staff_home')
+
+    return redirect('staff_category')
 
 # ##############sraff order##################
 def staff_view_order(request):

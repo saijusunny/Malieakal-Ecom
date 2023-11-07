@@ -118,4 +118,13 @@ class offer_zone(models.Model):
     offer_price=  models.FloatField(default=0)
     offer= models.IntegerField(default=0)
 
+class new_arrival(models.Model):
+    user = models.ForeignKey(User_Registration, on_delete=models.SET_NULL, null=True, blank=True)
+    image =  models.FileField(upload_to='images/items', default='static/images/logo/noimage.jpg')
+    title = models.CharField(max_length=255,blank=True,null=True)
+    description = models.TextField(max_length=200,blank=True,null=True)
+    price=  models.FloatField(default=0)
+    offer_price=  models.FloatField(default=0)
+    offer= models.IntegerField(default=0)
+
 

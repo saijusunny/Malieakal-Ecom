@@ -1,48 +1,67 @@
+
 {% extends 'staff/staff_base.html' %}
 {% load static %}
 {% block content %}
 <style>
-.col-sm-4{
-  margin: 10% auto;
+.col-sm-6{
+  margin: 0 auto;
 
 }
-  body{
-    background-color:#f4e3e3;
-  }
-  {% comment %} .container2{
-    box-shadow: 20px 20px 10px #9e7377;
-  } {% endcomment %}
+
+
 </style>
 
 <div class="row p-3" style="padding-top: 10rem;">
-  <div class="container2 col-sm-6 p-5" style="background-color:#191c24; text-align: left; border-radius: 10px; margin: 0 auto;">
+  <div class="container2 col-sm-6 p-5" style="background-color:#191c24; text-align: left; border-radius: 10px;">
     
-    <form action="{% url 'staff_category' %}" method="POST" enctype="multipart/form-data" style="text-align: center;">
+    <form action="{% url 'staff_subcategory' %}" method="POST" enctype="multipart/form-data" style="text-align: center;">
       {% csrf_token %}
       <div class="row mb-4">
         <div class="col-sm-12"style="border-radius: 10px;">
-          <h3 class="text-uppercase" style="color:#fff; font-family:bold; font-size:34px; " >Add Category</h3>
+          <h3 class="text-uppercase" style="color:#fff; font-family:bold; font-size:34px;" >Add Sub Category</h3>
           <hr>
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-12">
-          <label for="category_image" style="text-align:start; ">Category Image:</label>
-          
-          <input id="category_image" type="file" name="category_image" title="Image resalution : 400*400 px" accept="image/*" class="form-control text-light" /><p>resalution : W-295px H-306px</p>
-        </div>
-      </div>
+      
       
       <div class="row mt-3">
-        <div class="col-sm-12">
+        <div class="col-sm-11">
     
-          <input id="category_name" type="text" name="category_name"placeholder="Category Name" class="form-control text-light" />
+          <div class="form-item form-item1">
+            <label for="categories" style="text-align: left;">Categories</label>
+            <select name="category_name" id="categories" class="form-control text-light">
+              
+              {% for item in cat_all %}
+              <option value="{{ item.id }}">
+                {{ item.category_name }}
+              </option>
+              {% endfor %}
+            </select>
+        </div>
+
+        </div>
+        <div class="col-sm-1">
+          <br>
+          <a href="" class="btn btn-light pb-2 pt-2 mt-1" data-toggle="modal" data-target="#dis{{item.id}}" style="text-align: center;">+</a>
+    
+
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-sm-12" style="text-align: left;">
+          <div id="ad_req_nts">
+          
+          </div>
+          <div class="btn btn-light mt-2" id="add_req_row" title="Add New Sub Category">+</div>
+          
+          
         </div>
       </div>
       
       <div class="row mt-3">
-        <div class="col-sm-12">
-          <input id="submit" class="btn btn-light" type="submit" name="submit" value="Submit" />
+        <div class="col-sm-12" >
+          <input id="submit" class="btn btn-light " type="submit" name="submit" value="Submit" />
 
         </div>
       </div>
@@ -52,7 +71,68 @@
   </div>
 </div>
 
-  
+
+<form action="{% url 'staff_category'%}" method="POST" enctype="multipart/form-data">
+
+  <div class="rowmt-5 modal fade" id="dis{{item.id}}">
+    <div class="modal-dialog bd-example-modal-xl modal-dialog-centered" role="document" tabindex="-1" role="dialog"
+      aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-content modal-xl" style="background-color: #191c24;">
+        <div class="card ">
+          <div class="card-body">
+            <button type="button" class="close text-light" data-dismiss="modal" aria-label=""
+              style="background-color: #191c24;border:none;float: right;font-size: 20px;">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            
+            
+              {% csrf_token %}
+              
+                {% csrf_token %}
+                <div class="row mb-4">
+                  <div class="col-sm-12"style="border-radius: 10px;">
+                    <h3 class="text-uppercase" style="color:#fff; font-family:bold; font-size:34px;" >Add Category</h3>
+                    <hr>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <label for="category_image" style="text-align:start;">Category Image:</label>
+                    
+                    <input id="category_image" type="file" name="category_image" title="Image resalution : 400*400 px" accept="image/*" class="form-control  text-light" required/><p>resolution : W-295px H-306px</p>
+                  </div>
+                </div>
+                
+                <div class="row mt-3">
+                  <div class="col-sm-12">
+              
+                    <input id="category_name" type="text" name="category_name"placeholder="Category Name" class="form-control  text-light" required/>
+                  </div>
+                  <div class="col-sm-2">
+                    
+              
+          
+                  </div>
+                </div>
+          
+               
+                
+                <div class="row mt-3">
+                  <div class="col-sm-12" >
+                    <input id="submit" class="btn btn-light " type="submit" name="submit" value="Submit" />
+          
+                  </div>
+                </div>
+          
+          
+            
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 
 
 <script>
@@ -73,4 +153,34 @@
   });
 </script>
 
+
+<script>
+  $(document).ready(function(){
+    
+    $('#add_req_row').click(function(){
+    
+        $('#ad_req_nts').append(
+            `
+            <div class="row pt-1">
+              <div class="col-sm-12">
+                <input type="text" class="drop form-control ml-3 mt-2 text-light" style="border:1px solid #6C7293 ;color:#6C7293;" name='subcat[]' placeholder="Sub Category Name" required>
+              </div>
+              
+            </div>
+                                            
+            `
+        );
+    });
+  });
+</script>
+  
+
+
+
+
+
+
+
+
 {% endblock %}
+

@@ -277,7 +277,7 @@
               
           
               <div class="form-item form-item1">
-                <label for="under_category">Under Category</label>
+                <label for="under_category">Category</label>
               <select name="under_category" id="under_category" class="form-control text-light">
                 <option value="{{ item.under_category}}" selected>{{ item.under_category}}</option>
   
@@ -288,6 +288,27 @@
                   {% endfor %}
               </select>
               </div>
+              <div class="form-item form-item1">
+                <label for="categories">Under Categories</label>
+                <select name="categories" id="categories">
+                  <option value="{{ item.category.id}}" selected>{{ item.category.category_name}}</option>
+                  {% for item in item_categories %}
+                  <option value="{{ item.id }}" {% if item.id == item.category.id %}selected{% endif %}>
+                    {{ item.category_name }}
+                  </option>
+                  {% endfor %}
+                </select>
+            </div>
+              <div class="form-item form-item1">
+                <label for="categories">Sub Categories</label>
+                <select name="subcategories" id="subcategories" required>
+                  <option value="{{ item.sub_category }}" selected>{{ item.sub_category}}</option>
+                  {% for cat in sub_categories %}
+                    <option value="{{ cat.subcategory }}">{{ cat.subcategory}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
               <div class="form-item form-item1">
                 <label for="price">Price</label>
                 <input id="price" type="number" name="price" value="{{ item.price }}"  class="form-control text-light"/>
@@ -315,17 +336,7 @@
               </div>
           
           
-            <div class="form-item form-item1">
-                <label for="categories">Categories</label>
-                <select name="categories" id="categories">
-                  <option value="{{ item.category.id}}" selected>{{ item.category.category_name}}</option>
-                  {% for item in item_categories %}
-                  <option value="{{ item.id }}" {% if item.id == item.category.id %}selected{% endif %}>
-                    {{ item.category_name }}
-                  </option>
-                  {% endfor %}
-                </select>
-            </div>
+            
           
           
             <div class="form-item form-item1">

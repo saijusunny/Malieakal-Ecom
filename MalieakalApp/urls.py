@@ -53,8 +53,11 @@ urlpatterns = [
     path('export_user_excel/', views.export_user_excel, name='export_user_excel'),
     path('admin_subcategory/', views.admin_subcategory, name='admin_subcategory'),
     path('edit_subcategory/<int:id>', views.edit_subcategory, name='edit_subcategory'),
-
-    
+    path('ad_save_new_arrival/', views.ad_save_new_arrival, name='ad_save_new_arrival'),
+    path('ad_edit_newarrival/<int:id>', views.ad_edit_newarrival, name='ad_edit_newarrival'),
+    path('ad_delete_newarrival/<int:id>', views.ad_delete_newarrival, name='ad_delete_newarrival'),
+    path('ad_newarrival/', views.ad_newarrival, name='ad_newarrival'),
+    path('ad_newarrival_management/', views.ad_newarrival_management, name='ad_newarrival_management'),
     ############################################################ <<<<<<<<< Staff MODULE >>>>>>>>>>>>>>>>>
   
     
@@ -91,7 +94,8 @@ urlpatterns = [
 
 
     path('staff_edit_banner/<int:id>', views.staff_edit_banner, name='staff_edit_banner'),
-
+    path('staff_subcategory', views.staff_subcategory, name='staff_subcategory'),
+    path('staff_edit_subcategory/<int:id>', views.staff_edit_subcategory, name='staff_edit_subcategory'),
     
     ############################################################ <<<<<<<<< User MODULE >>>>>>>>>>>>>>>>>
 

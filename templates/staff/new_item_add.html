@@ -188,10 +188,27 @@
       
 
       <div class="form-item animate-fade-in">
-        <label for="under_category">Under Category</label>
+        <label for="under_category">Category</label>
         <select name="under_category" id="under_category" class="form-control text-light" required>
           {% for choice in under_choices %}
             <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-item form-item1">
+        <label for="categories">Under Categories</label>
+        <select name="categories" id="categories" required>
+          {% for item in item_categories %}
+            <option value="{{ item.id }}">{{ item.category_name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-item form-item1">
+        <label for="categories">Sub Categories</label>
+        <select name="subcategories" id="subcategories" required>
+          {% for cat in sub_categories %}
+            <option value="{{ cat.subcategory }}">{{ cat.subcategory}}</option>
           {% endfor %}
         </select>
       </div>
@@ -219,14 +236,7 @@
         <span id="image-size-info"></span>
       </div>
 
-    <div class="form-item form-item1">
-      <label for="categories">Categories</label>
-      <select name="categories" id="categories" required>
-        {% for item in item_categories %}
-          <option value="{{ item.id }}">{{ item.category_name}}</option>
-        {% endfor %}
-      </select>
-  </div>
+    
    
 
       <div class="form-item animate-fade-in">

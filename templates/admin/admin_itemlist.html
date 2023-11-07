@@ -277,7 +277,7 @@
               
           
               <div class="form-item form-item1">
-                <label for="under_category">Under Category</label>
+                <label for="under_category">Category</label>
               <select name="under_category" id="under_category" class="form-control text-light">
                 <option value="{{ item.under_category}}" selected>{{ item.under_category}}</option>
   
@@ -289,7 +289,7 @@
               </select>
               </div>
               <div class="form-item form-item1">
-                <label for="categories">Categories</label>
+                <label for="categories">Under Categories</label>
                 <select name="categories" id="categories">
                   <option value="{{ item.category.id}}" selected>{{ item.category.category_name}}</option>
                   {% for item in item_categories %}
