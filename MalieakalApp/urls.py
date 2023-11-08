@@ -107,7 +107,7 @@ urlpatterns = [
     path('profile_user_creation/',views.profile_user_creation,name='profile_user_creation'),
     path('user_home/',views.user_home,name='user_home'),
     path('all_items/',views.all_items,name='all_items'),
-    path('all_items_add_cart/<int:id>/<int:category>',views.all_items_add_cart,name='all_items_add_cart'),
+    path('all_items_add_cart/<int:id>/<str:category>',views.all_items_add_cart,name='all_items_add_cart'),
 
     path('index_user_confirmation/<int:user_id>/',views.index_user_confirmation,name='index_user_confirmation'),
     path('category_items/<int:categorys>',views.category_items,name='category_items'),#--- Category item view template 
@@ -131,6 +131,8 @@ urlpatterns = [
     path('index_search_feature',views.index_search_feature,name='index_search_feature'),
     path('user_profile',views.user_profile,name='user_profile'),
     path('edit_user_profile/<int:id>',views.edit_user_profile,name='edit_user_profile'),
+    path('filter_sub/<int:categorys>',views.filter_sub,name='filter_sub'),
+    
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     
     ]

@@ -887,7 +887,7 @@
                   <a href="{% url 'product_view' i.id%}" class="btn btn-outline-danger w-100" style="height:40px">View</a>
                 </div>
                 <div class="col-sm-6 mt-2">
-                  <a href="{% url 'all_items_add_cart' i.id i.category_id%}" class="btn btn-danger w-100" style="height:40px">Add to Cart</a>
+                  <a href="{% url 'all_items_add_cart' item.id item.category_id%}" class="btn btn-danger w-100" style="height:40px">Add to Cart</a>
                 </div>
               </div>
               

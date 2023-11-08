@@ -39,7 +39,8 @@ def index(request):
     cat_images = category.objects.all()
     item_det = item.objects.all().order_by('-buying_count')[:10]
     offer = offer_zone.objects.all().order_by('-id')[:5]
-    return render(request, 'index/index.html',{'image': all_images,'cat':cat_images,"offer":offer,"item_det":item_det})
+    arrival = new_arrival.objects.all().order_by('-id')[:5]
+    return render(request, 'index/index.html',{'image': all_images,'cat':cat_images,"offer":offer,"item_det":item_det,"arrival":arrival})
 
 def index_search_feature(request):
         
@@ -1482,15 +1483,49 @@ def category_items(request, categorys):
     crt_cnt=cart.objects.filter(user=ids).count()
     items=item.objects.filter(category_id=categorys)
     cat=category.objects.get(id=categorys)
+    sub_cat=sub_category.objects.filter(category=categorys)
+
     context={
         'user':usr,
         "items":items,
         "cat":cat,
-        "crt_cnt":crt_cnt
+        "categorys":categorys,
+        "crt_cnt":crt_cnt,
+        "sub_cat":sub_cat,
         
     }
     return render(request, 'user/category_items.html',context)
 
+def filter_sub(request,categorys):
+    if request.session.has_key('userid'):
+        pass
+    else:
+        return redirect('/')
+    if request.method == 'POST':
+        ids=request.session['userid']
+        usr=Profile_User.objects.get(user=ids)
+        sub=request.POST.get('cat_id', None)
+        print("SUB",sub)
+        
+        sub_cats=sub_category.objects.get(id=sub)
+        crt_cnt=cart.objects.filter(user=ids).count()
+        items=item.objects.filter(sub_category=sub_cats.subcategory)
+        cat=category.objects.get(id=categorys)
+        sub_cat=sub_category.objects.filter(category=categorys)
+
+        context={
+            'user':usr,
+            "items":items,
+            "cat":cat,
+            "crt_cnt":crt_cnt,
+            "categorys":categorys,
+            "sub_cat":sub_cat,
+            
+        }
+        return render(request, 'user/category_items.html',context)
+        
+
+    
 def under_items(request, category):
 
     if request.session.has_key('userid'):

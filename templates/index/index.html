@@ -872,6 +872,38 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js">
     </div>
   </div>
 
+  <div id="arrival" data-aos="fade-up">
+
+    <div class="row mt-3" >
+      <div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center; font-weight: bolder;">
+        <h2 style="font-weight: bold;">New Arrival</h2>
+      </div>
+    </div>
+
+    <div class=" " data-aos="fade-up">
+      <div class="row g-4 py-1">
+        <div class="owl-carousel owl-theme owl_views_arrival">
+          {% for ari in arrival%}
+         
+          <div class="item mb-4">
+            <div class="card border-0 " style="box-shadow: 5px 10px 20px 0px #bebebe48; height: 27rem;">
+              <img src="{{ ari.image.url }}" alt="" class="card-img-top">
+              <div class="card-body">
+                <h5 class="card-title" style="text-align: left; font-weight: bold;">{{ ari.title }}</h5>
+                
+                <h5 class="card-title" style="text-align: left;"><span style="font-weight: bolder; font-size: 18px;">₹{{ari.offer_price}}</span> <span disabled style="font-size: 16px;"><strike>₹{{ari.price}}</strike></span> <span style="background-color: green;color: rgb(255, 255, 255);font-size: 16px; border-radius: 5px; padding: 5px 10px 5px 10px;">{{ari.offer}}% off</span></h5>
+              </div>
+            </div>
+          </div>
+      
+          {% endfor %}
+          <!--  -->  
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
   <div id="trending" data-aos="fade-up" >
     <div class="row mt-4" >
       <div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center; font-weight: bolder;">
@@ -1172,6 +1204,28 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js">
 </script>
 
 <script>
+$('.owl_views_arrival').owlCarousel({
+  loop:true,
+  margin:10,
+  nav:true,
+  dots: false,
+  autoplay: true,
+  mouseDrag: true,
+  touchDrag: true,
+  navText: ["<i class='fa fa-long-arrow-left text-danger mr-3' style='font-size: 25px; margin-top:-100px'></i>", "<i class='fa fa-long-arrow-right  text-danger' style='font-size: 25px;margin-top:-100px'></i>"],
+
+responsive:{
+    0:{
+        items:1
+    },
+    600:{
+        items:3
+    },
+    1000:{
+        items:4
+    }
+}
+})
 
 $('.owl_views_offer').owlCarousel({
   loop:true,
