@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password
 # User Registration Section
+from datetime import datetime,date, timedelta
 
 role = (
     ("user1", "Staff"),
@@ -52,7 +53,8 @@ class Profile_User(models.Model):
     item_access = models.CharField(max_length=255,blank=True,null=True, default="false")
     offer_access = models.CharField(max_length=255,blank=True,null=True, default="false")
     order_access = models.CharField(max_length=255,blank=True,null=True, default="false")
-    arrival_access = models.CharField(max_length=255,blank=True,null=True, default="false")
+    location = models.CharField(max_length=255,blank=True,null=True)
+    
 
     def __str__(self):
         return f"{self.firstname} {self.lastname}"
@@ -129,4 +131,14 @@ class new_arrival(models.Model):
     offer_price=  models.FloatField(default=0)
     offer= models.IntegerField(default=0)
 
+class service_history(models.Model):
+    name  = models.CharField(max_length=255,blank=True,null=True)
+    address = models.TextField(blank=True,null=True)
+    phone_no = models.CharField(max_length=255,blank=True,null=True)
+    secondnumb = models.CharField(max_length=255,blank=True,null=True)
+    item = models.CharField(max_length=255,blank=True,null=True)
+    item_company = models.CharField(max_length=255,blank=True,null=True)
+    complaint = models.TextField(blank=True,null=True)
+    status= models.CharField(max_length=255,blank=True,null=True)
+    date_register= models.DateField(default=date.today())
 

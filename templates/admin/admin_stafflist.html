@@ -45,6 +45,7 @@
                 <th scope="col" style="color:#6C7293;">Phone Number</th>
                 <th scope="col" style="color:#6C7293;">Email</th> 
                 <th scope="col" style="color:#6C7293;">Username</th>
+                <th scope="col" style="color:#6C7293;">Location</th>
                 <th scope="col" style="color:#6C7293;">Actions</th>
                 
               </tr>
@@ -60,6 +61,15 @@
                 <td style="color:white;">{{ staff_member.phone_number }}</td>
                 <td style="color:white;">{{ staff_member.email }}</td>
                 <td style="color:white;">{{ staff_member.username }}</td>
+                <td style="color:white;">
+                {% for l in prop %}
+                
+                {% if l.user_id == staff_member.id%}
+                {{ l.location }}
+                {%endif%}
+                {%endfor%}
+              </td>
+
      
                 <td class="action-buttons">
                     <a href="" class="btn btn-success" data-toggle="modal" data-target="#dis{{staff_member.id}}"> Edit</a>
@@ -136,6 +146,9 @@
                                 <input type="text" id="password" name="password" required class="form-control text-light" value="{{staff_member.password}}">
                                 
                             </div>
+
+                            
+                            
                             
                             
                     </div>
@@ -144,6 +157,10 @@
                 {% for l in prop %}
                 
                   {% if l.user_id == staff_member.id%}
+                  <div class="form-item form-item4">
+                    <label for="Address">Location</label>
+                    <input id="location" type="text" name="location" value="{{l.location}}" class="form-control text-light"/>
+                 </div>
                     <div class="row">
                       <div class="col-sm-1">
                         {% if l.banner_access == "true"%}

@@ -6,6 +6,31 @@
         background-color: #f2f2f2;
         font-family:Arial, Helvetica, sans-serif;
     }
+    .card{
+      height: 35.5rem;
+    }
+    @media screen and (max-width: 960px) {  
+    .card{
+      height: 40rem;
+    }
+  }
+  @media screen and (max-width: 960px) {  
+    #submit{
+      text-align: center;
+      margin-top: 1%;
+      
+    }
+    
+  }
+
+  @media screen and (max-width: 960px) {  
+    #ip{
+      padding-right: 30px;
+    }
+    
+  }
+
+  
     
 </style>
 
@@ -19,15 +44,15 @@
         <form action="{% url 'filter_sub' categorys%}" method="POST" style="text-align: right;">
           {% csrf_token %}
           <div class="row">
-            <div class="col-sm-10">
-              <select name="cat_id" id="" class="form-control ">
+            <div class="col-sm-10 " id="ip">
+              <select name="cat_id" class="form-control " >
                 {% for i in sub_cat%}
                 <option value="{{i.id}}">{{i.subcategory}}</option>
                 {%endfor%}
               </select>
             </div>
-            <div class="col-sm-2 ">
-              <input type="submit" class="pt-1 pb-1" value="Filter">
+            <div class="col-sm-2 " id="submit">
+              <input type="submit"   class="pt-1 pb-1" value="Filter">
             </div>
           </div>
           
@@ -38,7 +63,7 @@
         <div class="row mt-3 p-3 ">
             {% for item in items%}
             <div class="col-md-3 col-sm-12 col-lg-3 mt-2 outers"  style="margin: 0 auto;">
-              <div class="card" style="height: auto;text-align: center;">
+              <div class="card"  style="text-align: center; ">
                     {% if item.image %}
                     
                     <img class="card-img-top w-100"  src="{{ item.image.url }}">
@@ -56,7 +81,7 @@
                   
                       <h5 class="card-title" style="font-weight: bolder; text-align: left;">{{ item.name }}</h5>
                       
-                      <h5 class="card-title" style="text-align: left"><span style="font-weight: bolder; font-size: 18px;">₹{{item.offer_price}}</span> <span disabled style="font-size: 16px;"><strike>₹{{item.price}}</strike></span> <span style="color: green;font-size: 14px;">{{item.offer}}% off</span></h5>
+                      <h5 class="card-title" style="text-align: left"><span style="font-weight: bolder; font-size: 18px;">₹{{item.offer_price}}</span> <span disabled style="font-size: 16px;"><strike>₹{{item.price}}</strike></span> <span style="color: green;font-size: 14px;">{{item.offer}}% off</span></h5> <span hidden class="sub">{{item.sub_category}}</span>
                       <div class="row">
                         <div class="col-sm-12 p-2">
                           <p class="card-text" style="text-align: justify;">{{ item.title_description }}</p>

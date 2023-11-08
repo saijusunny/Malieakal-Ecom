@@ -58,6 +58,15 @@ urlpatterns = [
     path('ad_delete_newarrival/<int:id>', views.ad_delete_newarrival, name='ad_delete_newarrival'),
     path('ad_newarrival/', views.ad_newarrival, name='ad_newarrival'),
     path('ad_newarrival_management/', views.ad_newarrival_management, name='ad_newarrival_management'),
+    path('ad_add_service/', views.ad_add_service, name='ad_add_service'),
+    path('sevice_history_fun/', views.sevice_history_fun, name='sevice_history_fun'),
+    path('change_status/', views.change_status, name='change_status'),
+    path('ad_delete_service/<int:id>', views.ad_delete_service, name='ad_delete_service'),
+
+    
+    
+
+    path('admin_service_management/', views.admin_service_management, name='admin_service_management'),
     ############################################################ <<<<<<<<< Staff MODULE >>>>>>>>>>>>>>>>>
   
     
@@ -100,6 +109,10 @@ urlpatterns = [
     path('staff_edit_newarrival/<int:id>', views.staff_edit_newarrival, name='staff_edit_newarrival'),
     path('staff_delete_newarrival/<int:id>', views.staff_delete_newarrival, name='staff_delete_newarrival'),
     path('staff_newarrival/', views.staff_newarrival, name='staff_newarrival'),
+    path('staff_add_service/', views.staff_add_service, name='staff_add_service'),
+    path('staff_sevice_history_fun/', views.staff_sevice_history_fun, name='staff_sevice_history_fun'),
+    path('staffchange_status/', views.staffchange_status, name='staffchange_status'),
+    path('delete_service/<int:id>', views.delete_service, name='delete_service'),
     ############################################################ <<<<<<<<< User MODULE >>>>>>>>>>>>>>>>>
 
     path('user_registration/',views.user_registration,name='user_registration'),

@@ -1,0 +1,112 @@
+{% extends 'staff/staff_base.html' %}
+{% load static %}
+{% block content %}
+<style>
+   
+
+    .card {
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-control {
+        border-radius: 10px;
+    }
+
+    .btn-primary {
+        background-color: #d22b2c;
+        border-color: #d22b2c;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-label {
+        text-align: center;
+        padding: 8px;
+        margin-bottom: 0;
+    }
+
+    @media (max-width: 768px) {
+        .card {
+            margin-top: 20px;
+        }
+    }
+</style>
+
+<section class=" text-center" style=" ">
+    <div class="container">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-sm-8 ">
+                
+                <div class="card" >
+                    <div class="card-body" >
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                     
+                            <h3 style="color: red;">Register Complaint</h3>
+                            <div class="form-group row mt-5">
+                                <label for="formFileLg" class="col-sm-3 col-form-label form-label">Name</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control text-light" id="formFileLg" type="text" name="name" required>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row text-center">
+                                <label for="title" class="col-sm-3 col-form-label form-label">Address</label>
+                                <div class="col-sm-9">
+                                   <textarea name="address"  class="form-control text-light"></textarea>
+                                </div>
+                            </div>
+                            
+                            <hr>
+                            <div class="form-group row">
+                                <label for="price" class="col-sm-3 col-form-label form-label">Phone Number</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="ph_no" id="ph_no" class="form-control text-light">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <label for="price" class="col-sm-3 col-form-label form-label">Secondary Phone Number</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="second_ph_no" id="second_ph_no" class="form-control text-light">
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="form-group row">
+                                <label for="offer" class="col-sm-3 col-form-label form-label">Item Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="item_name" id="item_name" class="form-control text-light">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <label for="offer" class="col-sm-3 col-form-label form-label">Item Company</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="item_company" id="item_company" class="form-control text-light">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <label for="offer" class="col-sm-3 col-form-label form-label">Item Complaint</label>
+                                <div class="col-sm-9">
+                                    <textarea name="complaint" id="" class="form-control text-light"></textarea>
+                                  
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary" style="width: 40%;">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

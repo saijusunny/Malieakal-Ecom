@@ -48,7 +48,7 @@ def index_search_feature(request):
             # Retrieve the search query entered by the user
             search_query = request.POST['search_query']
             # Filter your model by the search query
-            items = item.objects.filter(Q(offer_price__contains=search_query) | Q(name__contains=search_query) | Q(under_category__contains=search_query) | Q(title_description__contains=search_query) | Q(description__contains=search_query))
+            items = item.objects.filter(Q(offer_price__contains=search_query) | Q(name__contains=search_query) | Q(under_category__contains=search_query) | Q(title_description__contains=search_query) | Q(description__contains=search_query)| Q(sub_category__contains=search_query))
             return render(request, 'index/index_all_item.html', { 'items':items})
         else:
             return redirect('index')
@@ -202,6 +202,7 @@ def edit_staff(request,id):
         pro.offer_access = request.POST.get('offer_access')
         pro.order_access = request.POST.get('order_access')
         pro.arrival_access = request.POST.get('arrival_access')
+        pro.location= request.POST.get('location')
         pro.save()
         
         return redirect ("staff_all_list")
@@ -434,6 +435,7 @@ def add_staff(request):
                 pro.offer_access = request.POST.get('offer_access')
                 pro.order_access = request.POST.get('order_access')
                 pro.arrival_access = request.POST.get('arrival_access')
+                pro.location= request.POST.get('location')
                 pro.save()
    
         
@@ -756,6 +758,42 @@ def ad_delete_newarrival(request,id):
     form = new_arrival.objects.get(id=id)
     form.delete()
     return redirect ("ad_offerlist")
+
+def ad_add_service(request):
+    if request.method=="POST":
+        serv=service_history()
+        serv.name  =  request.POST.get('name',None)
+        serv.address = request.POST.get('address',None)
+        serv.phone_no =  request.POST.get('ph_no',None)
+        serv.secondnumb =  request.POST.get('second_ph_no',None)
+        serv.item =  request.POST.get('item_name',None)
+        serv.item_company =  request.POST.get('item_company',None)
+        serv.complaint = request.POST.get('complaint',None)
+        serv.status=  "pending"
+        serv.save()
+        return render(request, 'admin/ad_add_service.html')
+
+    return render(request, 'admin/ad_add_service.html')
+
+def admin_service_management(request):
+    return render(request, 'admin/ad_service_management.html')
+
+def sevice_history_fun(request):
+    service_data = service_history.objects.all().order_by("-date_register")
+    return render(request, 'admin/ad_service_list.html',{'service_data':service_data})
+
+def change_status(request):
+    ele = request.GET.get('ele')
+    ids = request.GET.get('idss')
+    ser=service_history.objects.get(id=ids)
+    ser.status=ele
+    ser.save()
+    return JsonResponse({"status":" not"})
+
+def ad_delete_service(request, id):
+    ser=service_history.objects.get(id=id)
+    ser.delete()
+    return redirect('ad_add_service')
 ############################################################# <<<<<<<<<< STAFF MODULE >>>>>>>>>>>>>>
 def staff_base(request):
     ids=request.session['userid']
@@ -1038,6 +1076,7 @@ def profile_staff_creation(request):
         date_of_birth= request.POST.get('date_of_birth',None)
         pro_pics = request.FILES.get('propic',None)
         secondnumb = request.POST.get('secondnumb',None)
+        locations = request.POST.get('location',None)
         
 
         profile_artist = Profile_User.objects.get(user=usr)
@@ -1050,6 +1089,7 @@ def profile_staff_creation(request):
         profile_artist.address=address
         profile_artist.pro_pic=pro_pics
         profile_artist.secondnumber=secondnumb
+    
       
         profile_artist.save()
 
@@ -1291,6 +1331,42 @@ def staff_delete_newarrival(request,id):
     form = new_arrival.objects.get(id=id)
     form.delete()
     return redirect ("staff_offerlist")
+
+def staff_add_service(request):
+    if request.method=="POST":
+        serv=service_history()
+        serv.name  =  request.POST.get('name',None)
+        serv.address = request.POST.get('address',None)
+        serv.phone_no =  request.POST.get('ph_no',None)
+        serv.secondnumb =  request.POST.get('second_ph_no',None)
+        serv.item =  request.POST.get('item_name',None)
+        serv.item_company =  request.POST.get('item_company',None)
+        serv.complaint = request.POST.get('complaint',None)
+        serv.status=  "pending"
+        serv.save()
+        return render(request, 'staff/staff_add_service.html')
+
+    return render(request, 'staff/staff_add_service.html')
+
+def staff_sevice_history_fun(request):
+    service_data = service_history.objects.all().order_by("-date_register")
+    ids=request.session['userid']
+    usr=Profile_User.objects.get(user=ids)
+    return render(request, 'staff/staff_service_list.html',{'service_data':service_data,'user':usr,})
+
+def staffchange_status(request):
+    ele = request.GET.get('ele')
+    ids = request.GET.get('idss')
+    ser=service_history.objects.get(id=ids)
+    ser.status=ele
+    ser.save()
+    return JsonResponse({"status":" not"})
+
+def delete_service(request, id):
+    ser=service_history.objects.get(id=id)
+    ser.delete()
+    return redirect('staff_sevice_history_fun')
+
 #######################################logout################### <<<<<<<<<< USER MODULE >>>>>>>>>>>>>>>>
 
 def base_sub(request):
@@ -1441,8 +1517,10 @@ def home(request):
     cat_images = category.objects.all()
     item_det = item.objects.all().order_by('-buying_count')[:10]
     offer = offer_zone.objects.all().order_by('-id')[:5]
+    arrival = new_arrival.objects.all().order_by('-id')[:5]
+
     
-    return render(request, 'user/home.html', {'image': all_images,'cat':cat_images,'user':usr,"cat1":cat1,"cat2":cat2,"cat3":cat3,"item_det":item_det,'offer':offer,"crt_cnt":crt_cnt})
+    return render(request, 'user/home.html', {'image': all_images,'cat':cat_images,'user':usr,"cat1":cat1,"cat2":cat2,"cat3":cat3,"item_det":item_det,'offer':offer,"crt_cnt":crt_cnt,'arrival':arrival})
 
 
 def search_feature(request):
@@ -1455,7 +1533,7 @@ def search_feature(request):
             # Retrieve the search query entered by the user
             search_query = request.POST['search_query']
             # Filter your model by the search query
-            items = item.objects.filter(Q(offer_price__contains=search_query) | Q(name__contains=search_query) | Q(under_category__contains=search_query) | Q(title_description__contains=search_query) | Q(description__contains=search_query))
+            items = item.objects.filter(Q(offer_price__contains=search_query) | Q(name__contains=search_query) | Q(under_category__contains=search_query) | Q(title_description__contains=search_query) | Q(description__contains=search_query) | Q(sub_category__contains=search_query))
             return render(request, 'user/all_item.html', {'user':usr,"crt_cnt":crt_cnt, 'items':items})
         else:
             return redirect('home')
