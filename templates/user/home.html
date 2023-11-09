@@ -17,6 +17,53 @@
 
 
 <style>
+
+  /* rating  */
+  .star { 
+    font-size: 4vh; 
+    color: #f8d32b;
+} 
+  
+.one { 
+    color: rgb(255, 0, 0); 
+} 
+  
+.two { 
+    color: rgb(255, 106, 0); 
+} 
+  
+.three { 
+    color: rgb(251, 255, 120); 
+} 
+  
+.four { 
+    color: rgb(255, 255, 0); 
+} 
+  
+.five { 
+    color: rgb(24, 159, 14); 
+}
+    /* right sidebar */
+  .ribbon {
+    position: fixed;
+    top: 33%;
+    right: 0;
+    background-color: #dc3545;
+    border-radius:32px;
+    color: #fff;
+    padding: 10px;
+   
+    transform-origin: 100% 0;
+    z-index: 1000;
+}
+
+@media screen and (max-width: 960px) {  
+  .ribbon{
+  right:5%
+
+  }
+  
+}
   
 #owl_rev * {
   margin: 0;
@@ -945,6 +992,76 @@
     </div>
   </div> 
 
+  <div id="reviews" data-aos="fade-up"  >
+    <div class="row mt-4" >
+      <div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center; font-weight: bolder;">
+        <h2 style="font-weight: bold;">What Clients Say</h2>
+      </div>
+    </div>
+
+    <div class="row" style="background: linear-gradient(to top, red, white);height:400px;">
+      <div class="col-sm-4" >
+        google review
+      </div>
+      <div class="col-sm-8">
+        <div class="row">
+          <div class="owl-carousel owl-theme owl_views58">
+        
+            <div class="item mb-4">
+              <div style="background-color: white;">
+                <div class="row pt-3">
+                  <div class="col-sm-6 pl-3">
+                    <img src="https://lh3.googleusercontent.com/a/ALm5wu2oof0rA06j6dAMLxEj2RHgbn2JUup-XDgcffwm=s120-c-c-rp-w64-h64-mo-br100" class="center-block img-circle" alt="Customer Feedback" style="width: 50px;">
+                  </div>
+                  <div class="col-sm-8">
+                    <h5 class="customer-name">
+                      Binu Binu</h5>
+                      <p style="font-size: 10px;">2022-11-21</p>
+                  </div>
+                </div>
+                <div class="row pl-3 pr-3">
+                  <div class="col-sm-12">
+                    
+                    <span onclick="gfg(1)" 
+                    class="star">★ 
+                    </span> 
+                    <span onclick="gfg(2)" 
+                          class="star">★ 
+                    </span> 
+                    <span onclick="gfg(3)" 
+                          class="star">★ 
+                    </span> 
+                    <span onclick="gfg(4)" 
+                          class="star">★ 
+                    </span> 
+                    <span onclick="gfg(5)" 
+                          class="star">★ 
+                    </span> 
+              
+              
+                  
+                  </div>
+                </div>
+                <div class="row pl-3 pr-3">
+                  <div class="col-sm-12">
+                    <p>Always my shop in malieakal, thanks mr saheer,</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!--  -->  
+          </div>
+
+        </div>
+      </div>
+      
+      
+    </div>
+    
+  </div> 
+
+  
 
   <section id="owl_rev">
     <div class="customer-feedback mt-5 pt-5">
@@ -1070,6 +1187,15 @@
     </div>
 </section>
 
+<!-- right side navbar -->
+<div class="ribbon">
+  <p><a href="https://twitter.com/" class="twitter" target="_blank"><i class="fab fa-twitter bg-danger text-light w-100"></i></a></p>
+  <p><a href="https://www.facebook.com/" class="facebook" target="_blank"><i class="fab fa-facebook bg-danger text-light w-100"></i></a></p>
+  <p><a href="https://www.instagram.com" class="instagram" target="_blank"><i class="fab fa-instagram bg-danger text-light w-100"></i></a></p>
+  <p><a href="https://www.skype.com" class="google-plus" target="_blank"><i class="fab fa-skype bg-danger text-light w-100"></i></i></a></p>
+  <p><a href="https://www.linkedin.com" class="linkedin" target="_blank"><i class="fab fa-linkedin bg-danger text-light w-100"></i></a>
+  </p>
+</div>
 
 
 </div>
@@ -1246,10 +1372,30 @@ $('.owl_views_arrival').owlCarousel({
       }
   }
   })
+
+  
+  $('.owl_views58').owlCarousel({
+  loop:true,
+  margin:3,
+  autoplay: true,
+  nav:false,
+  responsive:{
+      0:{
+          items:1
+      },
+      600:{
+          items:3
+      },
+      1000:{
+          items:4
+      }
+  }
+  })
+
   
   $('.owl_views').owlCarousel({
   loop:true,
-  margin:10,
+  margin:50,
   autoplay: true,
   nav:false,
   responsive:{
