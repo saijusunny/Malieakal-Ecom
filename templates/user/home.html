@@ -19,9 +19,32 @@
 <style>
 
   /* rating  */
+  #main_row_googl{
+    height:400px;
+  }
+  #google_item{
+    padding-top: 120px;
+  }
+  #google_rv{
+    padding-top: 65px;
+  }
+
+  @media screen and (max-width: 960px) {  
+    #main_row_googl{
+    height:560px;
+  }
+  #google_item{
+    padding-top: 50px;
+  }
+  #google_rv{
+    padding-top: 30px;
+  }
+  
+}
+
   .star { 
-    font-size: 4vh; 
-    color: #f8d32b;
+    font-size: 5vh; 
+    color:#eb6e00;
 } 
   
 .one { 
@@ -957,7 +980,7 @@
       <div class="owl-carousel owl-theme owl_views">
         {% for i in item_det%}
         <div class="item mb-4">
-          <div class="card border-0"  style="box-shadow: 5px 10px 20px 0px #bebebe48; height:38rem">
+          <div class="card border-0"  style="box-shadow: 5px 10px 20px 0px #bebebe48; height:35rem">
             <img src="{{i.image.url}}" alt="{{i.category_name}}" class="card-img-top">
             <div class="card-body">
               <h6 alt="{{i.category_name}}" style="font-weight: bolder;font-size: 18px;">{{i.name}}</h6>
@@ -991,177 +1014,50 @@
       </div>
     </div>
   </div> 
-
-  <div id="reviews" data-aos="fade-up"  >
-    <div class="row mt-4" >
-      <div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center; font-weight: bolder;">
-        <h2 style="font-weight: bold;">What Clients Say</h2>
-      </div>
-    </div>
-
-    <div class="row" style="background: linear-gradient(to top, red, white);height:400px;">
-      <div class="col-sm-4" >
-        google review
-      </div>
-      <div class="col-sm-8">
-        <div class="row">
-          <div class="owl-carousel owl-theme owl_views58">
-        
-            <div class="item mb-4">
-              <div style="background-color: white;">
-                <div class="row pt-3">
-                  <div class="col-sm-6 pl-3">
-                    <img src="https://lh3.googleusercontent.com/a/ALm5wu2oof0rA06j6dAMLxEj2RHgbn2JUup-XDgcffwm=s120-c-c-rp-w64-h64-mo-br100" class="center-block img-circle" alt="Customer Feedback" style="width: 50px;">
-                  </div>
-                  <div class="col-sm-8">
-                    <h5 class="customer-name">
-                      Binu Binu</h5>
-                      <p style="font-size: 10px;">2022-11-21</p>
-                  </div>
-                </div>
-                <div class="row pl-3 pr-3">
-                  <div class="col-sm-12">
-                    
-                    <span onclick="gfg(1)" 
-                    class="star">★ 
-                    </span> 
-                    <span onclick="gfg(2)" 
-                          class="star">★ 
-                    </span> 
-                    <span onclick="gfg(3)" 
-                          class="star">★ 
-                    </span> 
-                    <span onclick="gfg(4)" 
-                          class="star">★ 
-                    </span> 
-                    <span onclick="gfg(5)" 
-                          class="star">★ 
-                    </span> 
-              
-              
-                  
-                  </div>
-                </div>
-                <div class="row pl-3 pr-3">
-                  <div class="col-sm-12">
-                    <p>Always my shop in malieakal, thanks mr saheer,</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+  
+  <!-- reviews mobia  -->
+  <div class="row" style="background: linear-gradient(to top, #b3dfec, white);" id="main_row_googl">
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-12" style="text-align: center;" id="google_item">
+          
+          <h1>
+            <span style="color: #4285F4;">G</span><span style="color: #DB4437;">o</span><span style="color: #F4B400;">o</span><span style="color: #4285F4;">g</span><span style="color: #0F9D58;">l</span><span style="color: #DB4437;">e</span>
+            <br>
             
-            <!--  -->  
-          </div>
+          </h1>
+          <span onclick="gfg(1)" 
+          class="star">★ 
+          </span> 
+          <span onclick="gfg(2)" 
+                class="star">★ 
+          </span> 
+          <span onclick="gfg(3)" 
+                class="star">★ 
+          </span> 
+          <span onclick="gfg(4)" 
+                class="star">★ 
+          </span> 
+          <span onclick="gfg(5)" 
+                class="star">★ 
+          </span> 
+          <p style="font-weight: bold;">EXCELLENT
+            </p>
+       
+            <p>Based on <span style="font-weight: bold;">11086 reviews.</span></p>
 
         </div>
       </div>
       
-      
     </div>
-    
-  </div> 
+    <div class="col-sm-8" style="" id="google_rv">
+      <div class='sk-ww-google-reviews' data-embed-id='223242'></div><script src='https://widgets.sociablekit.com/google-reviews/widget.js' async defer></script>
+    </div>
+  </div>
+
+
 
   
-
-  <section id="owl_rev">
-    <div class="customer-feedback mt-5 pt-5">
-      <div class=" text-center">
-        <div class="row">
-          <div class="col-sm-offset-2 col-sm-8" style="margin: auto;">
-            <div>
-              <h2 class="section-title">What Clients Say</h2>
-            </div>
-          </div><!-- /End col -->
-        </div><!-- /End row -->
-        <a href="https://www.google.com/maps/place/Malieakal+Electronics+(Kollam)/@8.8912409,76.3025057,11z/data=!4m9!1m2!2m1!1smalieakal+electronics!3m5!1s0x3b05fc4fc5db81cd:0x14490dc4c5866323!8m2!3d8.8912409!4d76.5826571!15sChVtYWxpZWFrYWwgZWxlY3Ryb25pY3MiA4gBAVoXIhVtYWxpZWFrYWwgZWxlY3Ryb25pY3OSARFlbGVjdHJvbmljc19zdG9yZQ" class="stretched-link" style="text-decoration: none; color: black;">
-  
-        <div class="row">
-          <div class="col-md-8  col-sm-12" style="margin: 0 auto;">
-            <div class="owl-carousel feedback-slider">
-  
-              <!-- slider item -->
-              <div class="feedback-slider-item">
-                <img src="https://lh3.googleusercontent.com/a/ALm5wu2oof0rA06j6dAMLxEj2RHgbn2JUup-XDgcffwm=s120-c-c-rp-w64-h64-mo-br100" class="center-block img-circle" alt="Customer Feedback">
-                <h3 class="customer-name">
-                  Binu Binu</h3>
-                <p>Good service support Super world cup offer purchased by sony led thanks vineesh for your support</p>
-                <span class="light-bg customer-rating" data-rating="5">
-                  5
-                  <i class="fa fa-star"></i>
-                </span>
-              </div>
-              <!-- /slider item -->
-  
-              <!-- slider item -->
-              <div class="feedback-slider-item">
-                <img src="https://lh3.googleusercontent.com/a/ALm5wu2Gko302GIO4_aYxjrgWEjbZLe_8WqGV-r9g7Bj=s120-c-c-rp-w64-h64-mo-br100" class="center-block img-circle" alt="Customer Feedback">
-                <h3 class="customer-name">Jerald Jerald</h3>
-                <p>I purchased sony led from malieakal santhana, muneer good dealings</p>
-                <span class="light-bg customer-rating" data-rating="4">
-                  5
-                  <i class="fa fa-star"></i>
-                </span>
-              </div>
-              <!-- /slider item -->
-  
-              <!-- slider item -->
-              <div class="feedback-slider-item">
-                <img src="https://lh3.googleusercontent.com/a-/ACNPEu-YDNCkDSlVepvS2wxjRNhepF2-itpgeFOBUrgZ=s120-c-c-rp-w64-h64-mo-br100" class="center-block img-circle" alt="Customer Feedback">
-                <h3 class="customer-name">Sofiya Sajan</h3>
-                <p>Purchased a samsung led tv thanks to Vishnu to support us</p>
-                <span class="light-bg customer-rating" data-rating="5">
-                  5
-                  <i class="fa fa-star"></i>
-                </span>
-              </div>
-
-              <div class="feedback-slider-item">
-                <img src="https://lh3.googleusercontent.com/a/ALm5wu24RYh2rL-zYDqjXp2he7WqYxiXLcf3UHzoeCpz=s120-c-c-rp-w64-h64-mo-br100" class="center-block img-circle" alt="Customer Feedback">
-                <h3 class="customer-name">
-                  Rincy Roshni134</h3>
-                <p>Always my shop in malieakal, thanks mr saheer,</p>
-                <span class="light-bg customer-rating" data-rating="5">
-                  5
-                  <i class="fa fa-star"></i>
-                </span>
-              </div>
-
-              <div class="feedback-slider-item">
-                <img src="https://lh3.googleusercontent.com/a-/ACNPEu8EW_2GQ6zxwm3O1k_r6K4BCDE6DEJV4w9ThXe-jQ=s120-c-c-rp-w64-h64-mo-br100" class="center-block img-circle" alt="Customer Feedback">
-                <h3 class="customer-name">
-                  Noble Antony Norbert </h3>
-                <p>It's a good shop furniture and home appliances</p>
-                <span class="light-bg customer-rating" data-rating="5">
-                  5
-                  <i class="fa fa-star"></i>
-                </span>
-              </div>
-
-              <div class="feedback-slider-item">
-                <img src="https://lh3.googleusercontent.com/a-/ACNPEu_eiOYNSPueIOHYClC-2mxejBhISH1uxqJFv6l-=s120-c-c-rp-w64-h64-mo-br100" class="center-block img-circle" alt="Customer Feedback">
-                <h3 class="customer-name">
-                  Sreejith S</h3>
-                <p>Purchased a led tv thanks to Vishnu for good service</p>
-                <span class="light-bg customer-rating" data-rating="5">
-                  5
-                  <i class="fa fa-star"></i>
-                </span>
-              </div>
-              <!-- /slider item -->
-              
-            </div><!-- /End feedback-slider -->
-  
-            
-            <!-- /side thumbnail -->
-  
-          </div><!-- /End col -->
-        </div><!-- /End row -->
-        </a>
-      </div><!-- /End container -->
-    </div><!-- /End customer-feedback -->
-
-    
-  </section>
 
   
 
@@ -1374,23 +1270,7 @@ $('.owl_views_arrival').owlCarousel({
   })
 
   
-  $('.owl_views58').owlCarousel({
-  loop:true,
-  margin:3,
-  autoplay: true,
-  nav:false,
-  responsive:{
-      0:{
-          items:1
-      },
-      600:{
-          items:3
-      },
-      1000:{
-          items:4
-      }
-  }
-  })
+  
 
   
   $('.owl_views').owlCarousel({
