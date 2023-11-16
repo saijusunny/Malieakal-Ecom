@@ -100,7 +100,7 @@
 }
 
 #owl_rev body {
-  font-family: 'Roboto Slab', serif;
+  font-family: "Poppins", Sans-serif;
   font-size: 15px;
   line-height: 1.67;
   color: #444;
@@ -537,7 +537,7 @@
         margin: 0;
         font-size: 36px;
         font-weight: 700;
-        font-family: "Playfair Display", serif;
+        font-family: "Poppins", Sans-serif;
         color: black;
     }
   .slick-slide {
@@ -656,7 +656,7 @@
     display: none;
 }
   *{
-    font-family:sans-serif;
+    font-family:"Poppins", Sans-serif;
   }
 #why_malieakal{
     margin-top: 7%;
@@ -681,7 +681,19 @@
   
 }
 
-
+iframe{
+  width: 400px;
+  height: 300px;
+  margin-left: 12px;
+}
+@media screen and (max-width: 960px) {  
+  iframe{
+  width: 268px;
+  height: 300px;
+  margin-left: 0px;
+}
+  
+}
 
 
 </style>
@@ -695,7 +707,7 @@
         <div class="carousel-item active " data-bs-interval="2000">
           <div class="carousel-caption d-none d-md-block mb-5" >
             <!-- <div class="p-4" style="background-color: rgba(32, 32, 32, 0.534);"> -->
-              <h1 class="mt-3" style="font-family:cursive;color: rgb(221, 145, 5);">{{image.image_title1}}</h1>
+              <h1 class="mt-3" style="font-family:'Poppins', Sans-serif;color: rgb(221, 145, 5);">{{image.image_title1}}</h1>
             <!-- <h3 class="pb-3" style="font-family: cursive;">CREAMY HOT AND READY TO SERVE.</h3>
             <a href="" class="btn btn-light mb-5" ><b>Book a Table</b></a>
               <a href="" class="btn btn-light mb-5" ><b>Order Now</b></a> -->
@@ -1064,13 +1076,15 @@
 
   <div class="row mt-4 pt-4" >
     <div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
-      <h2 style="font-weight: bold;">Gallary</h2>
+      <h2 style="font-weight: bold;">Gallery</h2>
     </div>
   </div> 
-  <section id="gallary" class="gallary" >
-    <div class="row">
-      <div class="col-sm4">
-        
+  <section id="gallary" class="gallary"  >
+    <div class="row mt-3">
+      <div class="col-sm-12" style="text-align: center;">
+        <iframe  src="https://www.youtube.com/embed/yv656WAmi9Q?si=vFwwQIsutjp1zgYc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe  src="https://www.youtube.com/embed/YYW9_mADwZI?si=ktTMqMHiNs_nFY-2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe  src="https://www.youtube.com/embed/x9BzZZhTx2o?si=p_1ziIC0CHD1QxaM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       </div>
     </div>
   </section>

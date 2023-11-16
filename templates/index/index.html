@@ -111,7 +111,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js">
 }
 
 #owl_rev body {
-  font-family: 'Roboto Slab', serif;
+  font-family: "Poppins", Sans-serif;
   font-size: 15px;
   line-height: 1.67;
   color: #444;
@@ -549,7 +549,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js">
         margin: 0;
         font-size: 36px;
         font-weight: 700;
-        font-family: "Playfair Display", serif;
+        font-family: "Poppins", Sans-serif;
         color: black;
     }
   .slick-slide {
@@ -695,7 +695,19 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js">
   }
   
 }
-
+iframe{
+  width: 400px;
+  height: 300px;
+  margin-left: 12px;
+}
+@media screen and (max-width: 960px) {  
+  iframe{
+  width: 268px;
+  height: 300px;
+  margin-left: 0px;
+}
+  
+}
 
 </style>
 
@@ -761,7 +773,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js">
       {%if image.banner_image5%}  
       <div class="carousel-item" data-bs-interval="10000" >
         <div class="carousel-caption d-none d-md-block mb-5">
-            <h1 style="font-family:cursive;color: #c08507;">{{image.image_title3}}</h1>
+            <h1 style='font-family:"Poppins", Sans-serif;color: #c08507;'>{{image.image_title3}}</h1>
             <!-- <h5 style="font-family: cursive;color: white;">Some representative placeholder content for the first slide.</h5> -->
             <!-- <a href="" class="btn btn-light mb-5" ><b>Book a Table</b></a> -->
 
@@ -1073,6 +1085,21 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js">
     </div>
   </div>
 
+
+  <div class="row mt-4 pt-4" >
+    <div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+      <h2 style="font-weight: bold;">Gallery</h2>
+    </div>
+  </div> 
+  <section id="gallary" class="gallary" >
+    <div class="row mt-3">
+      <div class="col-sm-12" style="text-align: center;">
+        <iframe  src="https://www.youtube.com/embed/yv656WAmi9Q?si=vFwwQIsutjp1zgYc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe  src="https://www.youtube.com/embed/YYW9_mADwZI?si=ktTMqMHiNs_nFY-2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe  src="https://www.youtube.com/embed/x9BzZZhTx2o?si=p_1ziIC0CHD1QxaM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
 
 
   
