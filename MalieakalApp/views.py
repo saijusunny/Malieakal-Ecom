@@ -1022,7 +1022,7 @@ def edit_staffcateg(request,id):
 
 
 def staff_edit_subcategory(request,id):
-    if request.method == 'POST':
+    if request.method == "POST":
         category_id = request.POST.get('category_name', None)
         cat=category.objects.get(id=id)
         subcat = request.POST.getlist('subcat[]')
@@ -1983,3 +1983,23 @@ def edit_user_profile(request,id):
         return redirect ("user_profile")
     return redirect ("user_profile")
   
+
+def mservice(request):
+   
+    return render(request, "user/mservice.html"'')
+
+def user_add_service(request):
+    if request.method=="POST":
+        serv=service_history()
+        serv.name  =  request.POST.get('name',None)
+        serv.address = request.POST.get('address',None)
+        serv.phone_no =  request.POST.get('ph_no',None)
+        serv.secondnumb =  request.POST.get('second_ph_no',None)
+        serv.item =  request.POST.get('item_name',None)
+        serv.item_company =  request.POST.get('item_company',None)
+        serv.complaint = request.POST.get('complaint',None)
+        serv.status=  "pending"
+        serv.save()
+        return redirect('mservice')
+
+    return redirect('mservice')

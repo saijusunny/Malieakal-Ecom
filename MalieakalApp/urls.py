@@ -145,6 +145,8 @@ urlpatterns = [
     path('user_profile',views.user_profile,name='user_profile'),
     path('edit_user_profile/<int:id>',views.edit_user_profile,name='edit_user_profile'),
     path('filter_sub/<int:categorys>',views.filter_sub,name='filter_sub'),
+    path('mservice',views.mservice,name='mservice'),
+    path('user_add_service',views.user_add_service,name='user_add_service'),
     
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     

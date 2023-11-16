@@ -902,6 +902,54 @@
     
   </div>
 
+  <div id="trending" data-aos="fade-up" >
+    <div class="row mt-4" >
+      <div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center; font-weight: bolder;">
+        <h2 style="font-weight: bold;">Trending Product</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      
+      <div class="owl-carousel owl-theme owl_views">
+        {% for i in item_det%}
+        <div class="item mb-4">
+          <div class="card border-0"  style="box-shadow: 5px 10px 20px 0px #bebebe48; height:35rem">
+            <img src="{{i.image.url}}" alt="{{i.category_name}}" class="card-img-top">
+            <div class="card-body">
+              <h6 alt="{{i.category_name}}" style="font-weight: bolder;font-size: 18px;">{{i.name}}</h6>
+              <p ><span style="font-weight: bolder; font-size: 18px;">₹{{i.offer_price}}</span> <span disabled style="font-size: 16px;"><strike>₹{{i.price}}</strike></span> <span style="color: green;font-size: 14px;">{{i.offer}}%  off</span></p>
+              <p>{{i.title_description  }}</p>
+              <div class="row">
+                <div class="col-sm-6 mt-2">
+                  <a href="{% url 'product_view' i.id%}" class="btn btn-outline-danger w-100" style="height:40px">View</a>
+                </div>
+                <div class="col-sm-6 mt-2">
+                  <a href="{% url 'all_items_add_cart' i.id i.category_id%}" class="btn btn-danger w-100" style="height:40px">Add to Cart</a>
+                </div>
+              </div>
+              
+              
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <!--  -->  
+      </div>
+      
+    </div>
+    <div class="row  text-center">
+      <div class="col-sm-12">
+        <a href="{% url 'all_items'%}">
+          <div class="btn btn-outline-danger  ml-1">
+            <i class="fa-solid fa-plus"></i>Explore More
+        </div>
+      </a>
+      </div>
+    </div>
+  </div> 
+  
+
   <div id="offer" data-aos="fade-up">
 
     <div class="row mt-3" >
@@ -968,52 +1016,7 @@
 
   
 
-  <div id="trending" data-aos="fade-up" >
-    <div class="row mt-4" >
-      <div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center; font-weight: bolder;">
-        <h2 style="font-weight: bold;">Trending Product</h2>
-      </div>
-    </div>
-
-    <div class="row">
-      
-      <div class="owl-carousel owl-theme owl_views">
-        {% for i in item_det%}
-        <div class="item mb-4">
-          <div class="card border-0"  style="box-shadow: 5px 10px 20px 0px #bebebe48; height:35rem">
-            <img src="{{i.image.url}}" alt="{{i.category_name}}" class="card-img-top">
-            <div class="card-body">
-              <h6 alt="{{i.category_name}}" style="font-weight: bolder;font-size: 18px;">{{i.name}}</h6>
-              <p ><span style="font-weight: bolder; font-size: 18px;">₹{{i.offer_price}}</span> <span disabled style="font-size: 16px;"><strike>₹{{i.price}}</strike></span> <span style="color: green;font-size: 14px;">{{i.offer}}%  off</span></p>
-              <p>{{i.title_description  }}</p>
-              <div class="row">
-                <div class="col-sm-6 mt-2">
-                  <a href="{% url 'product_view' i.id%}" class="btn btn-outline-danger w-100" style="height:40px">View</a>
-                </div>
-                <div class="col-sm-6 mt-2">
-                  <a href="{% url 'all_items_add_cart' i.id i.category_id%}" class="btn btn-danger w-100" style="height:40px">Add to Cart</a>
-                </div>
-              </div>
-              
-              
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-        <!--  -->  
-      </div>
-      
-    </div>
-    <div class="row  text-center">
-      <div class="col-sm-12">
-        <a href="{% url 'all_items'%}">
-          <div class="btn btn-outline-danger  ml-1">
-            <i class="fa-solid fa-plus"></i>Explore More
-        </div>
-      </a>
-      </div>
-    </div>
-  </div> 
+  
   
   <!-- reviews mobia  -->
   <div class="row" style="background: linear-gradient(to top, #b3dfec, white);" id="main_row_googl">
