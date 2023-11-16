@@ -2003,3 +2003,32 @@ def user_add_service(request):
         return redirect('mservice')
 
     return redirect('mservice')
+
+def mservice_login(request):
+    ids=request.session['userid']
+    usr=User_Registration.objects.get(id=ids)
+    carts=cart.objects.filter(user=ids)
+    crt_cnt=cart.objects.filter(user=ids).count()
+    context={
+        "cart":carts,
+        'user':usr,
+        "crt_cnt":crt_cnt
+        
+    }
+    return render(request, "user/mservice_login.html"'')
+
+def user_add_service_login(request):
+    if request.method=="POST":
+        serv=service_history()
+        serv.name  =  request.POST.get('name',None)
+        serv.address = request.POST.get('address',None)
+        serv.phone_no =  request.POST.get('ph_no',None)
+        serv.secondnumb =  request.POST.get('second_ph_no',None)
+        serv.item =  request.POST.get('item_name',None)
+        serv.item_company =  request.POST.get('item_company',None)
+        serv.complaint = request.POST.get('complaint',None)
+        serv.status=  "pending"
+        serv.save()
+        return redirect('mservice_login')
+
+    return redirect('mservice_login')

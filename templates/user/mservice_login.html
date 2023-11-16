@@ -1,0 +1,304 @@
+{% extends 'user/user_base.html' %}
+{% load static %}
+{% block content %}
+<style>
+#main_div{
+    padding: 4%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 2%;
+    text-align: justify;
+}
+
+#logoss{
+    margin-top: 10rem;
+}
+#button{
+    padding-right: 6rem;
+    margin-top: 3%;
+}
+
+@media screen and (max-width: 960px) {  
+#main_div{
+    padding: 0.5%;
+
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-top: 4%;
+}
+#logoss{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+#button{
+    padding-right: 2rem;
+    margin-top: 3%;
+}
+  
+}
+
+#logoss_deli{
+    margin-top: 1rem;
+}
+</style>
+
+<div class="row" style="margin-top: 6rem;">
+    <div class="col-sm-12" id="button" style="text-align: right; ">
+        <a href="" data-toggle="modal" data-target="#send" class="btn btn-danger"> Send a Service</a>
+    </div>
+</div>
+
+<div class="row mt-3" >
+    <div class="col-sm-12 ">
+        <div class="row" id="main_div" style="background-color: rgb(252, 177, 177);">
+            <div class="col-sm-4 text-center" style="text-align: center; ">
+                <img src="https://www.malieakal.in/wp-content/uploads/2021/11/Layer-1.png" alt="{{i.category_name}}" class=" w-100" id="logoss" >
+            </div>
+            <div class="col-sm-8">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h5 ><b>Incomparable Before and after sales Service</b></h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p>
+                            The statement "We are taking utmost care and priority for providing the incomparable before and after-sales service" suggests a strong commitment to delivering exceptional customer service at both stages of a customer's interaction with a product or service.
+                        </p>
+                        <ul>
+                            <li style="font-weight: bold;">Before Sales Service:</li>
+                            <ul>
+                                <li>This pertains to the support and assistance provided to potential customers before they make a purchase. The company is committed to offering information, guidance, and support to help customers make informed decisions.</li>
+                            </ul>
+                        </ul>
+
+                        <ul>
+                            <li style="font-weight: bold;">After Sales Service:</li>
+                            <ul>
+                                <li>This refers to the support provided after a customer has made a purchase. The company is dedicated to addressing any concerns, providing assistance, and ensuring customer satisfaction even after the sale has been completed.</li>
+                            </ul>
+                        </ul>
+
+                        <ul>
+                            <li style="font-weight: bold;">Utmost Care and Priority:</li>
+                            <ul>
+                                <li>The company is emphasizing a meticulous and highly attentive approach to customer service. Every customer interaction, whether before or after a sale, is treated with the highest level of care.</li>
+                            </ul>
+                        </ul>
+
+                        <ul>
+                            <li  style="font-weight: bold;">Incomparable:</li>
+                            <ul>
+                                <li>The term "incomparable" suggests that the company believes its level of service is unmatched and superior to that of competitors. It conveys a commitment to setting a standard of service excellence that stands out in the industry.</li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row mt-3">
+    <div class="col-sm-12 ">
+        <div class="row" id="main_div" style="background-color: rgb(252, 177, 177);">
+            <div class="col-sm-4 text-center" style="text-align: center; ">
+                <img src="https://www.malieakal.in/wp-content/uploads/2021/11/emi.png" alt="{{i.category_name}}" class=" w-100" id="logoss" >
+            </div>
+            <div class="col-sm-8">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h5 ><b>Easy EMI</b></h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p>
+                            An array of financial services is offered by prominent financial institutions, including Bajaj Finance Limited (BFL), HDFC Bank, HDB Financial Services, Pine Labs, and others. These financial institutions are known for providing a comprehensive range of services to cater to the diverse needs of individuals and businesses.
+                        </p>
+                        <ul>
+                            <li style="font-weight: bold;">Banking Services:</li>
+                            <ul>
+                                <li>Traditional banking services such as savings accounts, current accounts, fixed deposits, and recurring deposits are provided by institutions like HDFC Bank.</li>
+                            </ul>
+                        </ul>
+
+                        <ul>
+                            <li style="font-weight: bold;">Loans and Credit Facilities:</li>
+                            <ul>
+                                <li>Financial institutions extend various types of loans, including personal loans, home loans, auto loans, and business loans. Bajaj Finance Limited and HDB Financial Services are known for their lending expertise.</li>
+                            </ul>
+                        </ul>
+
+                        <ul>
+                            <li style="font-weight: bold;">Credit Cards:</li>
+                            <ul>
+                                <li>Leading institutions like HDFC offer credit card services, providing individuals with a convenient and widely accepted means of making payments.</li>
+                            </ul>
+                        </ul>
+
+                        <ul>
+                            <li  style="font-weight: bold;">Insurance Products:</li>
+                            <ul>
+                                <li>Insurance services, covering life, health, and general insurance, are often part of the offerings. These services help individuals and businesses manage risks and uncertainties.</li>
+                            </ul>
+                        </ul>
+
+                        <ul>
+                            <li  style="font-weight: bold;">Digital Payment Solutions:</li>
+                            <ul>
+                                <li>Companies like Pine Labs specialize in digital payment solutions, facilitating electronic transactions for businesses through point-of-sale (POS) devices and other technologies.</li>
+                            </ul>
+                        </ul>
+
+                        
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-sm-12 ">
+        <div class="row" id="main_div" style="background-color: rgb(252, 177, 177);">
+            <div class="col-sm-4 text-center" style="text-align: center; ">
+                <img src="https://www.malieakal.in/wp-content/uploads/2021/11/delivery.png" alt="{{i.category_name}}" class=" w-100" id="logoss_deli" >
+            </div>
+            <div class="col-sm-8">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h5 ><b>Fast Home Delivery</b></h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p>
+                            "Our Professionally Managed Logistics & Supply Chain Department plays a pivotal role in seamlessly executing supply and deliveries for our clients. With a team of skilled professionals overseeing the logistics and supply chain processes, we ensure efficient and timely delivery of products or services. From sourcing to final delivery, our dedicated department handles the intricacies of the supply chain, optimizing the process to meet the highest standards of reliability and precision. Visit our service page to learn more about how our logistics and supply chain expertise can benefit your business."
+                        </p>
+                        
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row mt-3">
+    <div class="col-sm-12 ">
+        <div class="row" id="main_div" style="background-color: rgb(252, 177, 177);">
+            <div class="col-sm-4 text-center" style="text-align: center; ">
+                <img src="https://www.malieakal.in/wp-content/uploads/2021/11/digi.png" alt="{{i.category_name}}" class=" w-100" id="logoss_deli" >
+            </div>
+            <div class="col-sm-8">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h5 ><b>DIGI Cardy</b></h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p>
+                            "Introducing DIGI CARD – Your Digital Companion for Customer Loyalty. Our DIGI CARD is a cutting-edge digital card designed to consolidate and showcase all essential information about your valued patronage with us. Seamlessly incorporating details of your customer journey, transactions, and exclusive benefits, the DIGI CARD offers a user-friendly and accessible platform to enhance your experience with our services. Visit our service page to explore how this innovative digital solution transforms and elevates your customer engagement and loyalty."
+                        </p>
+                        
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<form action="{% url 'user_add_service_login'%}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="rowmt-5 modal fade" id="send">
+      <div class="modal-dialog bd-example-modal-xl modal-dialog-centered" role="document" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-content modal-xl" >
+          <div class="card " style="background-color: rgb(252, 177, 177);">
+            <div class="card-body">
+              <button type="button" class="close text-light" data-dismiss="modal" aria-label=""
+                style="background-color: #622E92;border:none;float: right;font-size: 20px;">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              
+              
+               
+              
+              <h3 style="color: black;">Register Complaint</h3>
+              <div class="form-group row mt-5">
+             
+                  <div class="col-sm-12 p-3">
+                      <input class="form-control text-dark" id="formFileLg" type="text"  placeholder="Name" name="name" required>
+                  </div>
+              </div>
+              <hr>
+              <div class="form-group row">
+             
+                  <div class="col-sm-12 p-3">
+                     <textarea name="address"  class="form-control text-dark" placeholder="Address"></textarea>
+                  </div>
+              </div>
+              
+              <hr>
+              <div class="form-group row">
+        
+                  <div class="col-sm-12 p-3">
+                      <input type="text" name="ph_no" id="ph_no" class="form-control text-dark" placeholder="Phone Number">
+                  </div>
+              </div>
+              <hr>
+              <div class="form-group row">
+                  
+                  <div class="col-sm-12 p-3">
+                      <input type="text" name="second_ph_no" id="second_ph_no" class="form-control text-dark" placeholder="Secondary Phone Number">
+                  </div>
+              </div>
+              <hr>
+
+              <div class="form-group row">
+       
+                  <div class="col-sm-12 p-3">
+                      <input type="text" name="item_name" id="item_name" class="form-control text-dark" placeholder="Item Name">
+                  </div>
+              </div>
+              <hr>
+              <div class="form-group row">
+        
+                  <div class="col-sm-12 p-3">
+                      <input type="text" name="item_company" id="item_company" class="form-control text-dark" placeholder="Item Company">
+                  </div>
+              </div>
+              <hr>
+              <div class="form-group row">
+    
+                  <div class="col-sm-12 p-3">
+                      <textarea name="complaint" id="" class="form-control text-dark" placeholder="Item Complaint"></textarea>
+                    
+                  </div>
+              </div>
+              <hr>
+              <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn btn-primary" style="width: 40%;">Submit</button>
+              </div>
+                         
+                            
+                       
+                   
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+{% endblock %}
